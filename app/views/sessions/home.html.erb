@@ -1,4 +1,5 @@
 <% if current_user %>
+    <%= current_user.name %> <br>
     <%= link_to "Log Out", logout_path %>
 <% else %>
     <%= link_to "Sign Up", signup_path %> <br>

@@ -10,4 +10,8 @@ Rails.application.routes.draw do
   resources :decks #index, new, create, edit, update, destroy
 
   root 'sessions#home' #testing purposes only, temporary
+
+  get '/auth/facebook/callback' => 'sessions#facebook_create'
+  get '/auth/:provider/callback', to: 'sessions#github_create'
+  get '/app/:provider/callback', to: 'sessions#github_create'
 end
