@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
             session[:user_id] = @user.id
             redirect_to root_path
         else
-            render :new
+            render :signup
         end  
     end 
 
@@ -18,9 +18,20 @@ class SessionsController < ApplicationController
     end 
 
     def logging_in
+        user = User.find_by(name: params[:user][:name])
+        user = user.try(:authenticate, params[:user][:password])
+        if user
+            #@user = user
+            session[:user_id] = user.id
+            redirect_to root_path
+        else
+            render :login
+        end
     end 
 
     def logout
+        session.clear
+        redirect_to '/'
     end 
 
     def home #testing purposes only, temporary
