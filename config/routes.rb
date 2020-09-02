@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   get 'logout', to: 'sessions#logout' #logout_path
 
   resources :decks #index, new, create, edit, update, destroy
+
+  root 'sessions#home' #testing purposes only, temporary
 end

@@ -14,5 +14,8 @@ class SessionsController < ApplicationController
 
     def logout
     end 
-    
+
+    def home #testing purposes only, temporary
+    end 
+
 end
