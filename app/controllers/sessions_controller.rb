@@ -37,6 +37,8 @@ class SessionsController < ApplicationController
     def home #testing purposes only, temporary
     end 
 
+    private
+
     def user_params
         params.require(:user).permit(:name, :email, :password, :admin)
     end
