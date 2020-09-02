@@ -1,6 +1,6 @@
 <h1> Signup as a new User </h1> <br>
 
-<%= form_for :user, url: '/users' do |f| %>
+<%= form_for :user, url: '/signup' do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name %>
     <br>
@@ -11,5 +11,5 @@
     <%= f.text_field :password %>
     <br>
     
-    <%= f.submit "Create User" %>
+    <%= f.submit "Sign Up" %>
 <% end %>
