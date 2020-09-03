@@ -27,6 +27,7 @@
     <%= f.check_box :shared %>
     <br>
     <%= f.hidden_field :player_name, :value => current_user.name %>
+    <%= f.hidden_field :tournament_id, :value => 1 %>
     
     <%= f.submit "Create Deck" %>
 <% end %>
