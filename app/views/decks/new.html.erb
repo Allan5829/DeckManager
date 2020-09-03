@@ -1,0 +1,32 @@
+<h1> Make your new deck now! </h1> <br>
+
+<%= form_for @deck do |f| %>
+
+    <% if @deck.errors.any? %>
+        <div id="error_explanation">
+        <h2>
+            <%= pluralize(@deck.errors.count, "error") %>
+            prohibited the deck from being created:
+        </h2>
+    
+        <ul>
+        <% @deck.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+        </ul>
+        </div>
+    <% end %>
+
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+    <br>
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+    <br>
+    Click the box if you would like your deck to be public.
+    <%= f.check_box :shared %>
+    <br>
+    <%= f.hidden_field :player_name, :value => current_user.name %>
+    
+    <%= f.submit "Create Deck" %>
+<% end %>
