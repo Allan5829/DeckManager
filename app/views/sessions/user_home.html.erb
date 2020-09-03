@@ -1,0 +1,18 @@
+<%= current_user.name %> <br>
+<%= link_to "Log Out", logout_path %> <br> 
+
+<%= link_to "Make a new deck?", new_deck_path %>
+
+<% current_user.decks.each do |deck| %>
+    <%= deck.title %> <br>
+    <%= deck.description %> <br>
+
+    <% if deck.shared = true %>
+        Anyone can view this deck. <br>
+    <% else %>
+        Only you can view the deck. <br>
+    <% end %>
+
+    <%= link_to "#{deck.title}", deck_path(deck) %> <br> 
+
+<% end %>

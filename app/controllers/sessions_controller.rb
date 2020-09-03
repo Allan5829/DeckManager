@@ -20,12 +20,11 @@ class SessionsController < ApplicationController
     end 
 
     def logging_in
-        user = User.find_by(name: params[:user][:name])
-        user = user.try(:authenticate, params[:user][:password])
-        if user
-            #@user = user
-            session[:user_id] = user.id
-            redirect_to root_path
+        @user = User.find_by(name: params[:user][:name])
+        @user = @user.try(:authenticate, params[:user][:password])
+        if @user
+            session[:user_id] = @user.id
+            redirect_to user_path(@user)
         else
             render :login
         end
@@ -34,6 +33,9 @@ class SessionsController < ApplicationController
     def logout
         session.clear
         redirect_to '/'
+    end 
+
+    def user_home
     end 
 
     def facebook_create

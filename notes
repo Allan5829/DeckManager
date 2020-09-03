@@ -10,7 +10,7 @@ Steps for myself
     -have signup and login pages, plus logout
     -add validations for users, and display errors
     -add secure password 
-    -add third party login, probably omniauth
+    **************************-add third party login, probably omniauth*********************
 
 4. implement creating decks with cards
     -is able to make a deck without any cards
