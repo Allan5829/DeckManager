@@ -45,16 +45,19 @@ class SessionsController < ApplicationController
         end
        
         session[:user_id] = @user.id
-        redirect_to '/'
+        redirect_to user_path(@user)
     end 
 
     def github_create
-        pp request.env['omniauth.auth']
+        @user = User.find_or_create_from_auth(request.env['omniauth.auth'])
 
-        session[:name] = request.env['omniauth.auth']['info']['name']
-        session[:omniauth_data] = request.env['omniauth.auth']
-
-        redirect_to root_path
+        if @user.save
+            session[:user_id] = @user.id
+            redirect_to user_path(@user)
+        else
+            render :signup
+        end
+        
       end
 
     def home #testing purposes only, temporary

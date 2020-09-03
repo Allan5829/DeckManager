@@ -14,6 +14,5 @@ Rails.application.routes.draw do
   root 'sessions#home' #testing purposes only, temporary
 
   get '/auth/facebook/callback' => 'sessions#facebook_create'
-  get '/auth/:provider/callback', to: 'sessions#github_create'
-  get '/app/:provider/callback', to: 'sessions#github_create'
+  get '/auth/github/callback', to: 'sessions#github_create'
 end

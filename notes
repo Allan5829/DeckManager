@@ -1,3 +1,8 @@
+Help with for 1 on 1
+-3rd party login... don't say I'm coming up with new errors I FOLLOWED THE INSTRUCTIONS OKAY ;-;
+-better way to make the join table connection for decks (it works but not short way)
+-ask about needing tournament id for deck (it works for now, as long as I don't forget...)
+
 Steps for myself
 1. decide on models and their relationships
     -make model and migration files
