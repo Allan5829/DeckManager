@@ -9,10 +9,13 @@ Rails.application.routes.draw do
 
   get 'user/home/:id', to: 'sessions#user_home', as: :user #user_path
 
-  resources :decks #index, new, create, edit, update, destroy
+  get '/auth/facebook/callback', to: 'sessions#facebook_create'
+  get '/auth/github/callback', to: 'sessions#github_create'  
 
-  root 'sessions#home' #testing purposes only, temporary
+  root 'sessions#home' #testing purposes only, temporary  
 
-  get '/auth/facebook/callback' => 'sessions#facebook_create'
-  get '/auth/github/callback', to: 'sessions#github_create'
+  resources :decks, except: :destroy #index, new, create, edit, update
+
+  get 'decks/:id/copy', to: 'decks#copy_deck', as: :copy_deck #copy_deck_path(deck)
+
 end

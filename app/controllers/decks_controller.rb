@@ -39,8 +39,11 @@ class DecksController < ApplicationController
         end 
     end 
 
-    def destroy
-    end
+    def copy_deck #method for a user to save a deck
+        @deck = Deck.find_by(id: params[:id])
+        UserDeck.create(:user_id => current_user.id, :deck_id => @deck.id)
+        redirect_to user_path(current_user)
+    end 
 
     private
 
