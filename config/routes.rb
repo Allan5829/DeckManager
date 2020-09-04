@@ -14,11 +14,12 @@ Rails.application.routes.draw do
 
   root 'sessions#home' #testing purposes only, temporary  
 
-  resources :decks, except: :destroy do #index, new, create, edit, update
-    resources :cards, only: [:new, :edit]
-  end 
+  resources :decks, except: :destroy #index, new, create, edit, update
 
   get 'decks/:id/copy', to: 'decks#copy_deck', as: :copy_deck #copy_deck_path(deck)
   get 'decks/:id/delete', to: 'decks#delete_deck', as: :delete_deck #delete_deck_path(deck)
+
+  post 'decks/add_cards', to: 'decks#add_cards', as: :add_card #add_card_path
+  post 'decks/remove_cards', to: 'decks#remove_cards', as: :remove_card #remove_card_path
 
 end

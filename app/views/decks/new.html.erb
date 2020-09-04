@@ -1,8 +1,6 @@
 <h1> Make your new deck now! </h1> <br>
 
-<%= form_for @deck do |f| %>
-
-    <% if @deck.errors.any? %>
+<% if @deck.errors.any? %>
         <div id="error_explanation">
         <h2>
             <%= pluralize(@deck.errors.count, "error") %>
@@ -17,6 +15,8 @@
         </div>
     <% end %>
 
+<%= form_for @deck do |f| %>
+
     <%= f.label :title %>
     <%= f.text_field :title %>
     <br>
@@ -28,6 +28,25 @@
     <br>
     <%= f.hidden_field :player_name, :value => current_user.name %>
     <%= f.hidden_field :tournament_id, :value => 1 %>
-    
+
+    <h2>Cards:</h2>
+    <h4> Name of the card | 
+    How many copies are played (1-4 everything except basic energy) | 
+    ONLY check box if the card is a BASIC energy card. </h4>
+    <%= f.fields_for :cards, @card do |cf| %>
+        <%= cf.text_field :name %>
+        <%= cf.text_field :count %>
+        <%= cf.check_box :basic_energy %>
+        <br>
+    <% end %>
+    <br>
     <%= f.submit "Create Deck" %>
+<% end %>
+
+
+<%= form_tag add_card_path do %>
+    <%= submit_tag "Add Card" %>
+<% end %>
+<%= form_tag remove_card_path do %>
+    <%= submit_tag "Remove Card" %>
 <% end %>

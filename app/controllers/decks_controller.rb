@@ -10,6 +10,7 @@ class DecksController < ApplicationController
 
     def new
         @deck = Deck.new
+        Deck.row.times { @deck.cards.build }
     end 
 
     def create
@@ -53,10 +54,26 @@ class DecksController < ApplicationController
         redirect_to user_path(current_user)
     end 
 
+    def add_cards
+        Deck.row_increase
+        redirect_to new_deck_path
+    end
+
+    def remove_cards
+        Deck.row_decrease
+        redirect_to new_deck_path
+    end
+
     private
 
     def deck_params
-        params.require(:deck).permit(:title, :description, :shared, :player_name, :tournament_id)
+        params.require(:deck).permit(:title, :description, :shared, :player_name, :tournament_id, 
+        cards_attributes: 
+        [
+            :name,
+            :count,
+            :basic_energy
+        ])
     end 
 
 end 
