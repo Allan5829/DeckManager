@@ -7,7 +7,7 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-github'
 gem 'dotenv-rails'
-#gem 'thin'
+
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.4', '>= 5.2.4.3'
@@ -55,6 +55,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'pry'
+  #gem 'thin' causes errors with secure connection
 end
 
 group :test do

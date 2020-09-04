@@ -1,4 +1,5 @@
 <%= current_user.name %> <br>
+<%= link_to "Home Page", root_path %>
 <%= link_to "Log Out", logout_path %> <br> 
 
 <%= link_to "Make a new deck?", new_deck_path %> <br>
@@ -19,5 +20,5 @@
     <% end %>
 
     <%= link_to "#{deck.title}", deck_path(deck) %> <br> 
-
+    <br>
 <% end %>
