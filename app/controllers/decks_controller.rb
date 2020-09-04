@@ -26,9 +26,17 @@ class DecksController < ApplicationController
     end 
 
     def edit
+        @deck = Deck.find_by(id: params[:id])
     end 
 
     def update
+        @deck = Deck.find_by(id: params[:id])
+
+        if @deck.update(deck_params)
+            redirect_to deck_path(@deck)
+        else
+            render :edit
+        end 
     end 
 
     def destroy
