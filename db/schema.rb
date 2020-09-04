@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_02_031656) do
+ActiveRecord::Schema.define(version: 2020_09_04_125644) do
 
   create_table "cards", force: :cascade do |t|
     t.string "name"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2020_09_02_031656) do
     t.boolean "basic_energy"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "deck_id"
   end
 
   create_table "decks", force: :cascade do |t|

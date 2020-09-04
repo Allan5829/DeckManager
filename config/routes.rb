@@ -14,7 +14,9 @@ Rails.application.routes.draw do
 
   root 'sessions#home' #testing purposes only, temporary  
 
-  resources :decks, except: :destroy #index, new, create, edit, update
+  resources :decks, except: :destroy do #index, new, create, edit, update
+    resources :cards, only: [:new, :edit]
+  end 
 
   get 'decks/:id/copy', to: 'decks#copy_deck', as: :copy_deck #copy_deck_path(deck)
   get 'decks/:id/delete', to: 'decks#delete_deck', as: :delete_deck #delete_deck_path(deck)
