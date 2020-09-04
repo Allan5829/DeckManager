@@ -45,6 +45,14 @@ class DecksController < ApplicationController
         redirect_to user_path(current_user)
     end 
 
+    def delete_deck
+        @deck = Deck.find_by(id: params[:id])
+        user_deck = UserDeck.find_by(:user_id => current_user.id, :deck_id => @deck.id)
+        user_deck.destroy
+
+        redirect_to user_path(current_user)
+    end 
+
     private
 
     def deck_params

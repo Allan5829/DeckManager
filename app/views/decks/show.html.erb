@@ -12,7 +12,8 @@ Originally created by: <%= @deck.player_name %> <br>
     <% end %>
 
     <% if @deck.users.find_by(id: current_user.id) %>
-        <%= link_to "Edit this deck?", edit_deck_path(@deck) %> <br> 
+        <%= link_to "Edit this deck?", edit_deck_path(@deck) %> 
+        <%= link_to "Delete deck from your collection?", delete_deck_path(@deck) %> <br> 
     <% else %>
         <%= link_to "Copy deck?", copy_deck_path(@deck) %>
     <% end %>
