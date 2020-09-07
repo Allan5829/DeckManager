@@ -9,6 +9,7 @@ class DecksController < ApplicationController
     end 
 
     def new
+        Tournament.make_first_tournament
         @deck = Deck.new
         Deck.row.times { @deck.cards.build }
     end 
