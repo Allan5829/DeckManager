@@ -17,11 +17,9 @@
 
 <%= form_for @deck do |f| %>
 
-    <%= f.label :title %>
-    <%= f.text_field :title %>
+    Title :<%= f.text_field :title %>
     <br>
-    <%= f.label :description %>
-    <%= f.text_field :description %>
+    Description: <%= f.text_field :description %>
     <br>
     Click the box if you would like your deck to be public.
     <%= f.check_box :shared %>
@@ -29,18 +27,27 @@
     <%= f.hidden_field :player_name, :value => current_user.name %>
     <%= f.hidden_field :tournament_id, :value => 1 %>
 
-    <h2>Cards:</h2>
-    <h4> Name of the card | 
-    How many copies are played (1-4 everything except basic energy) | 
-    ONLY check box if the card is a BASIC energy card. </h4>
+    <h2>Decklist:</h2>
+
+    <h4> How to fill out: </h4> 
+    <h4> -Your deck must consist of 60 cards </h4> 
+    <h4> -Check the box if the card is a Basic Energy ONLY! </h4> 
+    <h4> -If the card is NOT a Basic Energy you can only play 1-4 copies of that card, 
+        otherwise you can play as many energy as you like. </h4> 
+    <h4> -Fill out how many copies of each card the deck has along with the name. </h4> 
+    <h4> -IMPORTANT, if you need more rows for cards, Click "Add Card", 
+        if you know how many rows you need you can Click "Remove Card" to remove a row.
+        Do this before filling out the list or else you will lose progress. 
+        You may have extra rows. </h4>
+
     <%= f.fields_for :cards, @card do |cf| %>
-        <%= cf.text_field :name %>
-        <%= cf.text_field :count %>
-        <%= cf.check_box :basic_energy %>
+        Basic Energy?: <%= cf.check_box :basic_energy %>
+        Copies: <%= cf.number_field :count %>
+        Name: <%= cf.text_field :name %>
         <br>
     <% end %>
     <br>
-    <%= f.submit "Create Deck" %>
+    <%= f.submit "Create Deck" %> <%= link_to "Back", user_path(current_user) %>
 <% end %>
 
 

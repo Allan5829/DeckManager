@@ -5,7 +5,9 @@ class Deck < ApplicationRecord
     has_many :cards
     accepts_nested_attributes_for :cards
 
-    @rows = 1
+    validates :title, presence: true
+
+    @rows = 20
 
     def self.row_increase
         @rows += 1
