@@ -16,6 +16,7 @@ class DecksController < ApplicationController
     def create
         @deck = Deck.new(deck_params)
 
+        #binding.pry
         if @deck.save
             UserDeck.create(:user_id => current_user.id, :deck_id => @deck.id) 
             #check if this ^ can be refactored
