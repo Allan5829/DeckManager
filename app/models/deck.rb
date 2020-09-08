@@ -13,7 +13,8 @@ class Deck < ApplicationRecord
     validates :title, presence: true
     validates :shared, inclusion: { in: [true, false] }
     validate :deck_count # deck must have 60 cards
-    validate :no_duplicate # can't create 2 cards with the same name
+    validate :no_duplicates # can't create 2 cards with the same information in certain cases
+
 
     #Model Methods Start
 
@@ -41,21 +42,26 @@ class Deck < ApplicationRecord
         end 
 
         if deck_count < 60
-            errors.add(:deck, "has less then 60 cards")
+            errors.add(:deck, "can't have less than 60 cards")
         elsif deck_count > 60
-            errors.add(:deck, "has more then 60 cards")
+            errors.add(:deck, "can't have more than 60 cards")
         end 
     end
 
-    def no_duplicate
+    def no_duplicates
         card_array = []
 
         self.cards.each do |card|
-            card_array << card.name
+            # Case 1: Pokemon can have same name if different set info
+            card_array << card.set_info if card.pokemon
+            # Case 2: All other types of cards can't have the same name
+            card_array << card.name if card.trainer
+            card_array << card.name if card.basic_energy
+            card_array << card.name if card.special_energy
         end
 
         if card_array.uniq.length != card_array.length
-            errors.add(:deck, "can't have the same card in different rows")
+            errors.add(:deck, "can't have the same card info in different rows")
         end 
     end 
 
