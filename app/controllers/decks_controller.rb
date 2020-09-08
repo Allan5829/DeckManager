@@ -17,7 +17,7 @@ class DecksController < ApplicationController
     def create
         @deck = Deck.new(deck_params)
 
-        #binding.pry
+        binding.pry
         if @deck.save
             UserDeck.create(:user_id => current_user.id, :deck_id => @deck.id) 
             #check if this ^ can be refactored
@@ -74,7 +74,11 @@ class DecksController < ApplicationController
         [
             :name,
             :count,
-            :basic_energy
+            :pokemon,
+            :trainer,
+            :basic_energy,
+            :special_energy,
+            :set_info
         ])
     end 
 

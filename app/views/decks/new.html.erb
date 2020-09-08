@@ -17,9 +17,9 @@
 
 <%= form_for @deck do |f| %>
 
-    Title :<%= f.text_field :title %>
+    Name of this deck:<%= f.text_field :title %>
     <br>
-    Description: <%= f.text_field :description %>
+    Optional description about the deck: <%= f.text_field :description %>
     <br>
     Click the box if you would like your deck to be public.
     <%= f.check_box :shared %>
@@ -27,23 +27,29 @@
     <%= f.hidden_field :player_name, :value => current_user.name %>
     <%= f.hidden_field :tournament_id, :value => 1 %>
 
-    <h2>Decklist:</h2>
+    <h2>Fill Out Decklist Below</h2>
 
     <h4> How to fill out: </h4>
-    <h4> -Your deck must consist of 60 cards </h4>
-    <h4> -Check the box if the card is a Basic Energy ONLY!  </h4>
-    <h4> -If the card is NOT a Basic Energy you can only play 1-4 copies of that card, 
-        otherwise you can play as many energy as you like. </h4>
-    <h4> -Fill out how many copies of each card the deck has along with the name. </h4>
-    <h4> -IMPORTANT, if you need more rows for cards, Click "Add Card", 
+    <p> -Your deck must consist of 60 cards </p>
+    <p> -Check the box if the card is a Basic Energy ONLY! </p>
+    <p> -If the card is NOT a Basic Energy you can only play 1-4 copies of that card, 
+        otherwise you can play as many energy as you like. </p>
+    <p> -Fill out how many copies of each card the deck has along with the name. </p>
+    <p> -IMPORTANT, if you need more rows for cards, Click "Add Card", 
         if you know how many rows you need you can Click "Remove Card" to remove a row.
         Do this before filling out the list or else you will lose progress. 
-        You may have extra rows. </h4>
+        You may have extra rows. </p>
+    
+        <br>
 
     <%= f.fields_for :cards, @card do |cf| %>
-        Basic Energy?: <%= cf.check_box :basic_energy %>
-        Copies: <%= cf.number_field :count %>
-        Name: <%= cf.text_field :name %>
+        Pokemon? <%= cf.check_box :pokemon %>
+        Trainer? <%= cf.check_box :trainer %>
+        Special? <%= cf.check_box :special_energy %>
+        Basic Energy? <%= cf.check_box :basic_energy %>
+        Quantity: <%= cf.number_field :count %>
+        Card Name: <%= cf.text_field :name %>
+        Set & Card Number: <%= cf.text_field :set_info %>
         <br>
     <% end %>
     <br>

@@ -37,7 +37,7 @@ class Deck < ApplicationRecord
         deck_count = 0
 
         self.cards.each do |card|
-            deck_count += card.count
+            deck_count += card.count unless card.count.nil?
         end 
 
         if deck_count < 60
