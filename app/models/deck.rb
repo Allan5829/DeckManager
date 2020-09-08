@@ -32,6 +32,28 @@ class Deck < ApplicationRecord
         @rows
     end
 
+    def get_card_counts
+        array = []
+
+        count = 0
+        self.cards.each do |card|
+            card.count.times { count += 1 } if card.pokemon
+        end
+        array << count
+
+        count = 0
+        self.cards.each do |card|
+            card.count.times { count += 1 } if card.trainer
+        end
+        array << count
+
+        count = 0
+        self.cards.each do |card|
+            card.count.times { count += 1 } if card.special_energy || card.basic_energy
+        end
+        array << count
+    end 
+
     # Validation Methods Start
 
     def deck_count

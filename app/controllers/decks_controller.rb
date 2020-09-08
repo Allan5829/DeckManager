@@ -6,6 +6,7 @@ class DecksController < ApplicationController
 
     def show
         @deck = Deck.find_by(id: params[:id])
+        @deck_counts = @deck.get_card_counts
     end 
 
     def new

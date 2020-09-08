@@ -29,12 +29,37 @@ Originally created by: <%= @deck.player_name %> <br>
     <td> <h4> Set & Collection Number </h4> </td>
   </tr>
 
+    <td> Pokemon <%= @deck_counts[0] %> </td>
     <% @deck.cards.each do |card| %>
-        <tr>
-            <td> <%= card.count %> </td>
-            <td> <%= card.name %> </td>
-            <td> <%= card.set_info %> </td>
-        </tr>
-    <% end %>
+        <% if card.pokemon %>
+            <tr>
+                <td> <%= card.count %> </td>
+                <td> <%= card.name %> </td>
+                <td> <%= card.set_info %> </td>
+            </tr>
+        <% end %>
+    <% end %> 
+
+    <td> Trainer <%= @deck_counts[1] %> </td> 
+    <% @deck.cards.each do |card| %>
+        <% if card.trainer %>
+            <tr>
+                <td> <%= card.count %> </td>
+                <td> <%= card.name %> </td>
+                <td> <%= card.set_info %> </td>
+            </tr>
+        <% end %>
+    <% end %> 
+
+    <td> Energy <%= @deck_counts[2] %> </td> 
+    <% @deck.cards.each do |card| %>
+        <% if card.special_energy || card.basic_energy %>
+            <tr>
+                <td> <%= card.count %> </td>
+                <td> <%= card.name %> </td>
+                <td> <%= card.set_info %> </td>
+            </tr>
+        <% end %>
+    <% end %> 
   
 </table>
