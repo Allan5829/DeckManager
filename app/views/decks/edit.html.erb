@@ -28,6 +28,26 @@
     <br>
     <%= f.hidden_field :player_name, :value => @deck.player_name %>
     <%= f.hidden_field :tournament_id, :value => 1 %>
+
+    <%= f.fields_for :cards, @card do |cf| %>
+        Pokemon? <%= cf.check_box :pokemon %>
+        Trainer? <%= cf.check_box :trainer %>
+        Special? <%= cf.check_box :special_energy %>
+        Basic Energy? <%= cf.check_box :basic_energy %>
+        Quantity: <%= cf.number_field :count %>
+        Card Name: <%= cf.text_field :name %>
+        Set & Card Number: <%= cf.text_field :set_info %>
+        <br>
+    <% end %>
     
-    <%= f.submit "Update Deck" %>
+    <%= f.submit "Update Deck" %> <%= link_to "Back", deck_path(@deck) %>
+<% end %>
+
+<%= form_tag add_card_path do %>
+    <%= hidden_field_tag 'deck_id', @deck.id %>
+    <%= submit_tag "Add Card" %>
+<% end %>
+<%= form_tag remove_card_path do %>
+    <%= hidden_field_tag 'deck_id', @deck.id %>
+    <%= submit_tag "Remove Card" %>
 <% end %>

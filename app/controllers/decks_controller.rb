@@ -12,13 +12,12 @@ class DecksController < ApplicationController
     def new
         Tournament.make_first_tournament
         @deck = Deck.new
-        Deck.row.times { @deck.cards.build }
+        Deck.row("new").times { @deck.cards.build }
     end 
 
     def create
         @deck = Deck.new(deck_params)
 
-        #binding.pry
         if @deck.save
             UserDeck.create(:user_id => current_user.id, :deck_id => @deck.id) 
             #check if this ^ can be refactored
@@ -31,6 +30,7 @@ class DecksController < ApplicationController
 
     def edit
         @deck = Deck.find_by(id: params[:id])
+        Deck.row("edit").times { @deck.cards.build }
     end 
 
     def update
@@ -58,13 +58,23 @@ class DecksController < ApplicationController
     end 
 
     def add_cards
-        Deck.row_increase
-        redirect_to new_deck_path
+        if params[:deck_id].present?
+            Deck.row_increase("edit")
+            redirect_to edit_deck_path(params[:deck_id])
+        else
+            Deck.row_increase("new")
+            redirect_to new_deck_path
+        end 
     end
 
     def remove_cards
-        Deck.row_decrease
-        redirect_to new_deck_path
+        if params[:deck_id].present?
+            Deck.row_decrease("edit")
+            redirect_to edit_deck_path(params[:deck_id])
+        else
+            Deck.row_decrease("new")
+            redirect_to new_deck_path
+        end 
     end
 
     private
@@ -79,7 +89,8 @@ class DecksController < ApplicationController
             :trainer,
             :basic_energy,
             :special_energy,
-            :set_info
+            :set_info,
+            :id
         ])
     end 
 

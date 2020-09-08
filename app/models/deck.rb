@@ -19,17 +19,31 @@ class Deck < ApplicationRecord
     #Model Methods Start
 
     @rows = 20
+    @edit_rows = 1
 
-    def self.row_increase
-        @rows += 1
+    def self.row_increase(action)
+        if action == "new"
+            @rows += 1
+        elsif action == "edit"
+            @edit_rows += 1 
+        end 
     end
 
-    def self.row_decrease
-        @rows -= 1
+    def self.row_decrease(action)
+        if action == "new"
+            @rows -= 1
+        elsif action == "edit"
+            @edit_rows -= 1 
+        end 
     end
 
-    def self.row
-        @rows
+    def self.row(action)
+        if action == "new"
+            @rows 
+        elsif action == "edit"
+            
+            @edit_rows 
+        end 
     end
 
     def get_card_counts
@@ -104,7 +118,7 @@ class Deck < ApplicationRecord
         blank_card = []
 
         self.cards.each do |card|
-            if !card.name.present? && !card.count.present?
+            if !card.name.present? && ( !card.count.present? || card.count == 0)
                 blank_card << card 
             end 
         end 
