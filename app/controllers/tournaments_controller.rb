@@ -15,7 +15,7 @@ class TournamentsController < ApplicationController
 
     def create
         @tournament = Tournament.new(tournament_params)
-        
+
         if @tournament.save
             redirect_to admin_path(current_user) 
         else
@@ -24,9 +24,17 @@ class TournamentsController < ApplicationController
     end 
 
     def edit
+        @tournament = Tournament.find_by(id: params[:id])
     end 
 
     def update
+        @tournament = Tournament.find_by(id: params[:id])
+
+        if @tournament.update(tournament_params)
+            redirect_to tournament_path(@tournament)
+        else
+            render :edit
+        end 
     end 
 
     private

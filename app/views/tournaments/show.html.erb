@@ -1,0 +1,18 @@
+Hello Admin: <%= current_user.name %> <br>
+<%= link_to "Admin Page", admin_path(current_user) %>
+<%= link_to "Log Out", logout_path %> <br> 
+<%= link_to "View all tournaments", tournaments_path %> <br>
+
+<br>
+
+Tournament Name: <%= @tournament.event_name %> <br>
+Date: <%= @tournament.event_date %> <br>
+Info: <%= @tournament.info %> <br>
+
+<% if @tournament.finished == true %>
+    This tournament has been fully recorded. <br>
+<% else %>
+    This tournament is still being recorded. <br>
+<% end %>
+
+<%= link_to "Edit Tournament", edit_tournament_path(@tournament) %> <br>
