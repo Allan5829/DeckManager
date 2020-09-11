@@ -24,7 +24,11 @@ class SessionsController < ApplicationController
         @user = @user.try(:authenticate, params[:user][:password])
         if @user
             session[:user_id] = @user.id
-            redirect_to user_path(@user)
+            if @user.admin == true
+                redirect_to admin_path(@user)
+            else
+                redirect_to user_path(@user)
+            end 
         else
             render :login
         end
