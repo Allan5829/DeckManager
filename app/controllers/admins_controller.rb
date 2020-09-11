@@ -11,7 +11,7 @@ class AdminsController < ApplicationController
         if @user
             if @user.admin == true
                 session[:user_id] = @user.id
-                redirect_to user_path(@user)
+                redirect_to admin_path(@user)
             else
                redirect_to login_path 
             end 
@@ -19,4 +19,10 @@ class AdminsController < ApplicationController
             render :login
         end
     end
+
+    def delete_deck
+        @deck = Deck.find_by(id: params[:id])
+        binding.pry #delete cards and deck
+        redirect_to admin_path(current_user)
+    end 
 end 

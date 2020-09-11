@@ -1,32 +1,25 @@
-<% if current_user.admin == true %>
-<h4> Welcome Admin: <%= current_user.name %> </h4>
+<%= current_user.name %> <br>
+<%= link_to "Home Page", root_path %>
+<%= link_to "Log Out", logout_path %> <br> 
 
-<% elsif current_user.admin == false %>
+<%= link_to "Make a new deck?", new_deck_path %> <br>
+<%= link_to "View all public decks", decks_path %> <br>
+ 
+<br>
 
-    <%= current_user.name %> <br>
-    <%= link_to "Home Page", root_path %>
-    <%= link_to "Log Out", logout_path %> <br> 
+<h3> Your Decks </h3>
+<% current_user.decks.each do |deck| %>
+    <%= deck.title %> <br>
+    <%= deck.description %> <br>
+    Created by: <%= deck.player_name %> <br>
 
-    <%= link_to "Make a new deck?", new_deck_path %> <br>
-    <%= link_to "View all public decks", decks_path %> <br>
-    
-    <br>
-
-    <h3> Your Decks </h3>
-    <% current_user.decks.each do |deck| %>
-        <%= deck.title %> <br>
-        <%= deck.description %> <br>
-        Created by: <%= deck.player_name %> <br>
-
-        <% if deck.shared = true %>
-            This deck is public. <br>
-        <% else %>
-            This deck is private. <br>
-        <% end %>
-
-        <%= link_to "View this decklist", deck_path(deck) %> <br> 
-
-        <br>
+    <% if deck.shared = true %>
+        This deck is public. <br>
+    <% else %>
+        This deck is private. <br>
     <% end %>
 
+    <%= link_to "View this decklist", deck_path(deck) %> <br> 
+
+    <br>
 <% end %>

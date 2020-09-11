@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
 
-    helper_method :current_user, :logged_in?
+    helper_method :current_user, :logged_in?, :admin_logged_in?
 
     def current_user
         @current_user ||= User.find_by(id: session[:user_id])
