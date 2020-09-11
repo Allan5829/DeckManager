@@ -1,6 +1,10 @@
 class Tournament < ApplicationRecord
     has_many :decks
 
+    validates :event_name, :event_date, presence: true, uniqueness: true
+    validates :finished, inclusion: { in: [true, false] }
+    validates :info, presence: true
+
     def self.make_first_tournament
         if !Tournament.find_by(id: 1)
             t = Tournament.new(

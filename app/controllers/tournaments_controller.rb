@@ -14,6 +14,13 @@ class TournamentsController < ApplicationController
     end 
 
     def create
+        @tournament = Tournament.new(tournament_params)
+        
+        if @tournament.save
+            redirect_to admin_path(current_user) 
+        else
+            render :new
+        end
     end 
 
     def edit
