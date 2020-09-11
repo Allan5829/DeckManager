@@ -22,7 +22,7 @@ class AdminsController < ApplicationController
 
     def delete_deck
         @deck = Deck.find_by(id: params[:id])
-        binding.pry #delete cards and deck
+        @deck.admin_deck_delete
         redirect_to admin_path(current_user)
     end 
 end 

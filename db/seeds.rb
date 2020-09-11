@@ -1,4 +1,5 @@
 user1 = User.create(name: 'Allan5829', email: 'email@email.com', password: 'password', admin: false)
+user2 = User.create(name: 'name', email: 'email', password: 'password', admin: false)
 admin1 = User.create(name: 'Allan', email: 'allan@gmail.com', password: 'password', admin: true)
 
 tournament1 = Tournament.create(
@@ -52,3 +53,19 @@ deck1 = Deck.create(
     ])
 
 UserDeck.create(:user_id => 1, :deck_id => 1) 
+
+deck2 = Deck.create(
+    title: 'ALL ENERGY AHAHAHA', 
+    description: 'example deck to showcase an admin deleting a deck', 
+    shared: true, 
+    player_name: 'name', 
+    tournament_id: 1,
+    cards_attributes:[ 
+
+        { pokemon: false, trainer: false, basic_energy: true, special_energy: false, 
+        name: ':p', count: 60, set_info: ':p' }
+
+    ])
+
+UserDeck.create(:user_id => 1, :deck_id => 2)
+UserDeck.create(:user_id => 2, :deck_id => 2)

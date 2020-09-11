@@ -68,6 +68,22 @@ class Deck < ApplicationRecord
         array << count
     end 
 
+    def admin_deck_delete 
+        user_deck = UserDeck.where(deck_id: self.id)
+
+        user_deck.each do |ud|
+            ud.destroy
+        end
+
+        self.cards.each do |card|
+            card.destroy
+        end 
+
+        self.destroy
+        
+        return true
+    end 
+
     # Validation Methods Start
 
     def deck_count
