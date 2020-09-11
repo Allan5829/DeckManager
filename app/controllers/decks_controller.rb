@@ -23,7 +23,12 @@ class DecksController < ApplicationController
             UserDeck.create(:user_id => current_user.id, :deck_id => @deck.id) 
             #check if this ^ can be refactored
 
-            redirect_to user_path(current_user) 
+            if current_user.admin == true
+                redirect_to tournament_path(@deck.tournament)
+            else
+                redirect_to user_path(current_user)
+            end  
+            
         else
             render :new
         end  
@@ -82,6 +87,7 @@ class DecksController < ApplicationController
 
     def deck_params
         params.require(:deck).permit(:title, :description, :shared, :player_name, :tournament_id, 
+            :tournament_placement, 
         cards_attributes: 
         [
             :name,

@@ -1,3 +1,10 @@
+<% if current_user.admin == true %>
+    Hello Admin: <%= current_user.name %> <br>
+    <%= link_to "Admin Page", admin_path(current_user) %>
+<% elsif current_user.admin == false %>
+    <%= link_to "Profile Page", user_path(current_user) %>
+<% end %>
+
 <h1> Make your new deck now! </h1> <br>
 
 <% if @deck.errors.any? %>
@@ -21,11 +28,27 @@
     <br>
     Optional description about the deck: <%= f.text_field :description %>
     <br>
-    Click the box if you would like your deck to be public.
-    <%= f.check_box :shared %>
-    <br>
-    <%= f.hidden_field :player_name, :value => current_user.name %>
-    <%= f.hidden_field :tournament_id, :value => 1 %>
+    
+    <% if current_user.admin == true %>
+        Name of the Player: <%= f.text_field :player_name %> 
+        <br>
+        Select the tournament this deck is being created for: 
+        <%= f.collection_select :tournament_id, Tournament.where(finished: false), :id, :event_name %>
+        <br>
+        What place did this deck get (first = 1): <%= f.number_field :tournament_placement %>
+        <br>
+
+        <%= f.hidden_field :shared, :value => false %>
+    <% elsif current_user.admin == false %>
+        Click the box if you would like your deck to be public.
+        <%= f.check_box :shared %>
+        <br>
+
+        <%= f.hidden_field :player_name, :value => current_user.name %>
+        <%= f.hidden_field :tournament_id, :value => 1 %>
+        <%= f.hidden_field :tournament_placement, :value => 0 %>
+    <% end %>
+    
 
     <h2>Fill Out Decklist Below</h2>
 
@@ -58,7 +81,7 @@
         <br>
     <% end %>
     <br>
-    <%= f.submit "Create Deck" %> <%= link_to "Back", user_path(current_user) %>
+    <%= f.submit "Create Deck" %>
 <% end %>
 
 
