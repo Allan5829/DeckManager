@@ -1,7 +1,6 @@
 Help with for 1 on 1
 -3rd party login... don't say I'm coming up with new errors I FOLLOWED THE INSTRUCTIONS OKAY ;-;
 -better way to make the join table connection for decks (it works but not short way)
--ask about needing tournament id for deck (it works for now, as long as I don't forget...)
 
 Steps for myself
 1. decide on models and their relationships
@@ -25,7 +24,8 @@ Steps for myself
     -add validations for deck and card model, and display errors
 
 5. implement how a user would interact with decks
-    -have an "index" page where a user can select certain decks or choose the order
+    -have an "index" page where a user can select certain decks or 
+*********************************choose the order****************
     -let users share decks and let users save decks created by others
     -editing saved decks from others would create a new deck so that one user doesn't 
 

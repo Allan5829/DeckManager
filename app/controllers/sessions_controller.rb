@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController 
     #skip_before_action :verify_authenticity_token, only: :create
+    before_action :logged_in?, only: [:user_home]
 
     def signup
         @user = User.new

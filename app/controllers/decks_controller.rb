@@ -1,4 +1,5 @@
 class DecksController < ApplicationController 
+    before_action :logged_in?, except: [:index, :show]
 
     def index
         @decks = Deck.where(shared: true)

@@ -1,3 +1,4 @@
+<%= link_to "Home Page", root_path %>
 <% if current_user %>
     <%= link_to "Profile Page", user_path(current_user) %>
     <%= link_to "Log Out", logout_path %> <br>
@@ -12,6 +13,7 @@
     <%= deck.title %> <br>
     <%= deck.description %> <br>
     Created by: <%= deck.player_name %> <br>
+    Number of people that have saved this deck: <%= deck.users.count %> <br>
 
     <%= link_to "View Deck", deck_path(deck) %> <br> 
     tournament data for later <br>

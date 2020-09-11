@@ -1,5 +1,13 @@
-<%= link_to "Profile Page", user_path(current_user) %> 
-<%= link_to "View all public decks.", decks_path %> <br>
+<%= link_to "Home Page", root_path %>
+
+<% if current_user %>
+    <%= link_to "Profile Page", user_path(current_user) %>
+    <%= link_to "Log Out", logout_path %> <br>
+<% else %>
+    <%= link_to "Sign Up", signup_path %>
+    <%= link_to "Login", login_path %> <br>
+<% end %>
+<%= link_to "View all public decks", decks_path %> <br>
 
 <h2> <%= @deck.title %> </h2>
 <%= @deck.description %> <br>
@@ -11,11 +19,14 @@ Originally created by: <%= @deck.player_name %> <br>
         This deck is private. <br>
     <% end %>
 
-    <% if @deck.player_name == current_user.name %>
-        <%= link_to "Edit this deck?", edit_deck_path(@deck) %> 
-        <%= link_to "Delete deck from your collection?", delete_deck_path(@deck) %> <br> 
-    <% elsif !@deck.users.find_by(id: current_user.id) %>
-        <%= link_to "Copy deck?", copy_deck_path(@deck) %> <br>
+    <% if current_user %>
+        <% if @deck.player_name == current_user.name %>
+            <%= link_to "Edit this deck?", edit_deck_path(@deck) %> 
+        <% elsif @deck.users.find_by(id: current_user.id) %>
+            <%= link_to "Delete deck from your collection?", delete_deck_path(@deck) %> <br> 
+        <% elsif !@deck.users.find_by(id: current_user.id) %>
+            <%= link_to "Copy deck?", copy_deck_path(@deck) %> <br>
+        <% end %>
     <% end %>
 
 <br>
