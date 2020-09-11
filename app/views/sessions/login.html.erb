@@ -1,6 +1,7 @@
 <h1> Login </h1> <br>
 
 <%= form_for :user, url: '/user/login' do |f| %>
+    
     <%= f.label :name %>
     <%= f.text_field :name %>
     <br>
@@ -10,6 +11,8 @@
     
     <%= f.submit "Login" %> <%= link_to "Home Page", root_path %>
 <% end %>
+<br>
+<%= link_to "Admins Login", admin_login_path %>
 <br>
 <h1> Or login in with Facebook</h1> <br>
 <%= link_to('Log in with Facebook!', '/auth/facebook') %> Needs to update security settings... <br>

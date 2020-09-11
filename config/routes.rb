@@ -22,4 +22,7 @@ Rails.application.routes.draw do
   post 'decks/add_cards', to: 'decks#add_cards', as: :add_card #add_card_path
   post 'decks/remove_cards', to: 'decks#remove_cards', as: :remove_card #remove_card_path
 
+  get 'admin/login', to: 'admins#login', as: :admin_login #admin_login_path
+  post 'admin/login', to: 'admins#logging_in', as: :admin_login_post #admin_login_post_path
+
 end
