@@ -31,12 +31,3 @@
     <p> -card or set names that are not applicable to pokemon (misspelling does not apply) </p>
     <p> -"bad data" decks that were saved when they shouldn't have or a user found a workaround </p>
     <p> -or private decks that no longer have any users in the Public Decks Tournament </p>
-
-<br>
-
-<h3> Decks you created </h3>
-<% current_user.decks.each do |deck| %>
-    Title: <%= deck.title %> -
-    <%= link_to "View this deck's tournament", tournament_path(deck.tournament) %> <br> 
-    <br>
-<% end %>
