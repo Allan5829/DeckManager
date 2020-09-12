@@ -1,8 +1,12 @@
 class TournamentsController < ApplicationController
-    before_action :admin_logged_in?
+    before_action :admin_logged_in?, except: [:index, :show]
 
     def index
-        @tournaments = Tournament.all
+        if current_user && current_user.admin == true
+            @tournaments = Tournament.all
+        else
+            @tournaments = Tournament.where('id > 1', finished: true)
+        end 
     end 
     
     def show
@@ -36,6 +40,12 @@ class TournamentsController < ApplicationController
             render :edit
         end 
     end 
+
+    def user_index
+    end 
+
+    def user_show
+    end
 
     private
 

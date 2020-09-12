@@ -29,7 +29,7 @@
     Optional description about the deck: <%= f.text_field :description %>
     <br>
     
-    <% if current_user.admin == true %>
+    <% if current_user.admin == true %> 
         Name of the Player: <%= f.text_field :player_name %> 
         <br>
         Select the tournament this deck is being created for: 
@@ -46,7 +46,7 @@
 
         <%= f.hidden_field :player_name, :value => current_user.name %>
         <%= f.hidden_field :tournament_id, :value => 1 %>
-        <%= f.hidden_field :tournament_placement, :value => 1 %>
+        <%= f.hidden_field :tournament_placement, :value => 0 %>
     <% end %>
     
 

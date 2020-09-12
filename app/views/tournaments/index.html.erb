@@ -1,21 +1,79 @@
-Hello Admin: <%= current_user.name %> <br>
-<%= link_to "Admin Page", admin_path(current_user) %>
-<%= link_to "Log Out", logout_path %> <br> 
+<% if current_user && current_user.admin == true %>
 
-<br>
+    Hello Admin: <%= current_user.name %> <br>
+    <%= link_to "Admin Page", admin_path(current_user) %>
+    <%= link_to "Log Out", logout_path %> <br> 
 
-<% @tournaments.each do |t| %>
-    Tournament Name: <%= t.event_name %> <br>
-    Date: <%= t.event_date %> <br>
-    Info: <%= t.info %> <br>
-
-    <% if t.finished == true %>
-        This tournament has been fully recorded. <br>
-    <% else %>
-        This tournament is still being recorded. <br>
-    <% end %>
-
-    <%= link_to "View Tournament", tournament_path(t) %> <br>
     <br>
 
+    <table style="width:100%">
+    <tr>
+        <td> <h4> Completion Status </h4> </td>
+        <td> <h4> Tournament Name </h4> </td>
+        <td> <h4> Tournament Date </h4> </td> 
+        <td> <h4> Info </h4> </td>
+        <td> <h4> Tournament Link </h4> </td>
+    </tr>
+
+        <td> <h4> Incompleted Tournaments </h4> </td>
+        <% @tournaments.each do |t| %>
+            <tr>
+                <% if t.finished == false %>
+                    <td> Needs Work </td>
+                    <td> <%= t.event_name %> </td>
+                    <td> <%= t.event_date %> </td>
+                    <td> <%= t.info %> </td>
+                    <td> <%= link_to "View Tournament", tournament_path(t) %> <br> </td>
+                <% end %>
+            </tr>
+        <% end %> 
+
+        <td> <h4> Completed Tournaments </h4> </td>
+        <% @tournaments.each do |t| %>
+            <tr>
+                <% if t.finished == true %>
+                    <td> Complete </td>
+                    <td> <%= t.event_name %> </td>
+                    <td> <%= t.event_date %> </td>
+                    <td> <%= t.info %> </td>
+                    <td> <%= link_to "View Tournament", tournament_path(t) %> <br> </td>
+                <% end %>
+            </tr>
+        <% end %>
+    
+    </table>
+
+<% else %>
+    <%= link_to "Home Page", root_path %> <br>
+    <%= link_to "View all public decks", decks_path %> <br>
+    <% if current_user %>
+        Hello <%= current_user.name %> <br>
+        <%= link_to "Profile Page", user_path(current_user) %>
+        <%= link_to "Log Out", logout_path %> <br>
+    <% else %>
+        <%= link_to "Sign Up", signup_path %> <br>
+        <%= link_to "Login", login_path %> <br>
+    <% end %>
+
+    <table style="width:100%">
+    <tr>
+        <td> <h4> Tournament Name </h4> </td>
+        <td> <h4> Tournament Date </h4> </td> 
+        <td> <h4> Info </h4> </td>
+        <td> <h4> Tournament Link </h4> </td>
+    </tr>
+
+        <% @tournaments.each do |t| %>
+            <tr>
+                <td> <%= t.event_name %> </td>
+                <td> <%= t.event_date %> </td>
+                <td> <%= t.info %> </td>
+                <td> <%= link_to "View Tournament", tournament_path(t) %> <br> </td>
+            </tr>
+        <% end %> 
+    
+    </table>
+
 <% end %>
+
+

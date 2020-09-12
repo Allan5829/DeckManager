@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   post 'decks/remove_cards', to: 'decks#remove_cards', as: :remove_card #remove_card_path
 
   get 'admin/home/:id', to: 'admins#admin_home', as: :admin #admin_path
+  get 'admin/decks', to: 'admins#admin_decks'
   get 'admin/decks/:id/delete', to: 'admins#delete_deck', as: :admin_delete_deck 
     #admin_delete_deck_path(deck)
   

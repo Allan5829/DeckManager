@@ -1,8 +1,13 @@
+<% if current_user.admin == true %>
+    Hello Admin: <%= current_user.name %> <br>
+    <%= link_to "Admin Page", admin_path(current_user) %>
+<% elsif current_user.admin == false %>
+    <%= link_to "Profile Page", user_path(current_user) %>
+<% end %>
+
 <h1> Update deck </h1> <br>
 
-<%= form_for @deck do |f| %>
-
-    <% if @deck.errors.any? %>
+<% if @deck.errors.any? %>
         <div id="error_explanation">
         <h2>
             <%= pluralize(@deck.errors.count, "error") %>
@@ -17,17 +22,34 @@
         </div>
     <% end %>
 
+<%= form_for @deck do |f| %> 
+
     <%= f.label :title %>
     <%= f.text_field :title %>
     <br>
     <%= f.label :description %>
     <%= f.text_field :description %>
     <br>
-    Click the box if you would like your deck to be public.
-    <%= f.check_box :shared %>
-    <br>
-    <%= f.hidden_field :player_name, :value => @deck.player_name %>
-    <%= f.hidden_field :tournament_id, :value => 1 %>
+
+    <% if current_user.admin == true %> 
+        Name of the Player: <%= f.text_field :player_name %> 
+        <br>
+        Select the tournament this deck is being created for: 
+        <%= f.collection_select :tournament_id, Tournament.where(finished: false), :id, :event_name %>
+        <br>
+        What place did this deck get (first = 1): <%= f.number_field :tournament_placement %>
+        <br>
+
+        <%= f.hidden_field :shared, :value => false %>
+    <% elsif current_user.admin == false %>
+        Click the box if you would like your deck to be public.
+        <%= f.check_box :shared %>
+        <br>
+
+        <%= f.hidden_field :player_name, :value => current_user.name %>
+        <%= f.hidden_field :tournament_id, :value => 1 %>
+        <%= f.hidden_field :tournament_placement, :value => 1 %>
+    <% end %>
 
     <%= f.fields_for :cards, @card do |cf| %>
         Pokemon? <%= cf.check_box :pokemon %>

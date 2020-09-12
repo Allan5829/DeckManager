@@ -1,35 +1,84 @@
-Hello Admin: <%= current_user.name %> <br>
-<%= link_to "Admin Page", admin_path(current_user) %>
-<%= link_to "Log Out", logout_path %> <br> 
-<%= link_to "View all tournaments", tournaments_path %> <br>
+<% if current_user && current_user.admin == true %>
 
-<br>
-
-Tournament Name: <%= @tournament.event_name %> <br>
-Date: <%= @tournament.event_date %> <br>
-Info: <%= @tournament.info %> <br>
-
-<% if @tournament.finished == true %>
-    This tournament has been fully recorded. <br>
-<% else %>
-    This tournament is still being recorded. <br>
-<% end %>
-
-<%= link_to "Edit Tournament", edit_tournament_path(@tournament) %> <br>
-<br>
-
-<% @tournament.decks.each do |deck| %>
-    Title: <%= deck.title %> <br>
-    Description if any: <%= deck.description %> <br>
-    Created by: <%= deck.player_name %> <br> 
-
-    <% if deck.shared == true %>
-        Public with <%= deck.users.count %> users <br>
-    <% else %>
-        Private with <%= deck.users.count %> users <br>
-    <% end %>
-
-    <%= link_to "View this decklist", deck_path(deck) %> <br> 
+    Hello Admin: <%= current_user.name %> <br>
+    <%= link_to "Admin Page", admin_path(current_user) %>
+    <%= link_to "Log Out", logout_path %> <br> 
+    <%= link_to "View all tournaments", tournaments_path %> <br>
 
     <br>
+
+    Tournament Name: <%= @tournament.event_name %> <br>
+    Date: <%= @tournament.event_date %> <br>
+    Info: <%= @tournament.info %> <br>
+
+    <% if @tournament.finished == true %>
+        This tournament has been fully recorded. <br>
+    <% else %>
+        This tournament is still being recorded. <br>
+    <% end %>
+
+    <%= link_to "Edit Tournament", edit_tournament_path(@tournament) %> <br>
+    <br>
+
+    <table style="width:100%">
+    <tr>
+        <td> <h4> Place </h4> </td>
+        <td> <h4> Player Name </h4> </td> 
+        <td> <h4> Deck Title </h4> </td>
+        <td> <h4> Deck Link </h4> </td>
+        <td> <h4> Privacy </h4> </td>
+    </tr>
+
+        <% @tournament.decks.each do |deck| %>
+            <tr>
+                <td> <%= deck.tournament_placement %> </td>
+                <td> <%= deck.player_name %> </td>
+                <td> <%= deck.title %> </td>
+                <td> <%= link_to "View #{deck.title}", deck_path(deck) %> <br> </td>
+                <% if deck.shared == true %>
+                    <td> Public: <%= deck.users.count %> users </td>
+                <% else %>
+                    <td> Private: <%= deck.users.count %> users </td>
+                <% end %>
+            </tr>
+        <% end %> 
+    
+    </table>
+
+<% else %>
+    <%= link_to "Home Page", root_path %> <br>
+    <%= link_to "View all tournaments", tournaments_path %> <br>
+    <% if current_user %>
+        Hello <%= current_user.name %> <br>
+        <%= link_to "Profile Page", user_path(current_user) %>
+        <%= link_to "Log Out", logout_path %> <br>
+    <% else %>
+        <%= link_to "Sign Up", signup_path %> <br>
+        <%= link_to "Login", login_path %> <br>
+    <% end %>
+
+    Tournament Name: <%= @tournament.event_name %> <br>
+    Date: <%= @tournament.event_date %> <br>
+    Info: <%= @tournament.info %> <br>
+    <br>
+
+    <table style="width:100%">
+    <tr>
+        <td> <h4> Place </h4> </td>
+        <td> <h4> Player Name </h4> </td> 
+        <td> <h4> Deck Title </h4> </td>
+        <td> <h4> Deck Link </h4> </td>
+    </tr>
+
+        <% @tournament.decks.each do |deck| %>
+            <tr>
+                <td> <%= deck.tournament_placement %> </td>
+                <td> <%= deck.player_name %> </td>
+                <td> <%= deck.title %> </td>
+                <td> <%= link_to "View #{deck.title}", deck_path(deck) %> <br> </td>
+            </tr>
+        <% end %> 
+    
+    </table>
+
 <% end %>

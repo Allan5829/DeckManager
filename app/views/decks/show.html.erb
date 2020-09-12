@@ -28,28 +28,36 @@ Originally created by: <%= @deck.player_name %> <br>
         This deck is private. <br>
     <% end %>
 
-    <% if current_user %>
+    <% if current_user && current_user.admin == false %>
         <% if @deck.player_name == current_user.name %>
             <%= link_to "Edit this deck?", edit_deck_path(@deck) %> 
+            <%= link_to "Delete deck from your collection?", delete_deck_path(@deck) %> <br> 
         <% elsif @deck.users.find_by(id: current_user.id) %>
             <%= link_to "Delete deck from your collection?", delete_deck_path(@deck) %> <br> 
         <% elsif !@deck.users.find_by(id: current_user.id) %>
             <%= link_to "Copy deck?", copy_deck_path(@deck) %> <br>
         <% end %>
     <% end %>
+    
+    <% if current_user && current_user.admin == true %>
+        <% if @deck.users.find_by(id: current_user.id) %>
+            <%= link_to "Edit this deck?", edit_deck_path(@deck) %> 
+        <% end %>
+        <%= link_to "Delete Inappropiate Deck?", admin_delete_deck_path(@deck) %> <br>
+    <% end %>
 
 <br>
 
 <h3> Decklist </h3>
 
-<table style="width:85%">
+<table style="width:100%">
   <tr>
     <td> <h4> Count </h4> </td>
     <td> <h4> Card Name </h4> </td> 
     <td> <h4> Set & Collection Number </h4> </td>
   </tr>
 
-    <td> Pokemon <%= @deck_counts[0] %> </td>
+    <td> <h4> Pokemon <%= @deck_counts[0] %> </h4> </td>
     <% @deck.cards.each do |card| %>
         <% if card.pokemon %>
             <tr>
@@ -60,7 +68,7 @@ Originally created by: <%= @deck.player_name %> <br>
         <% end %>
     <% end %> 
 
-    <td> Trainer <%= @deck_counts[1] %> </td> 
+    <td> <h4> Trainer <%= @deck_counts[1] %> </h4> </td> 
     <% @deck.cards.each do |card| %>
         <% if card.trainer %>
             <tr>
@@ -71,7 +79,7 @@ Originally created by: <%= @deck.player_name %> <br>
         <% end %>
     <% end %> 
 
-    <td> Energy <%= @deck_counts[2] %> </td> 
+    <td> <h4> Energy <%= @deck_counts[2] %> </h4> </td> 
     <% @deck.cards.each do |card| %>
         <% if card.special_energy || card.basic_energy %>
             <tr>
@@ -85,7 +93,3 @@ Originally created by: <%= @deck.player_name %> <br>
 </table>
 
 <br>
-<% if current_user && current_user.admin == true %>
-        Admins should delete inappropriate decks.
-        <%= link_to "Delete Deck", admin_delete_deck_path(@deck) %> <br>
-<% end %>

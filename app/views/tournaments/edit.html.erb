@@ -27,6 +27,35 @@
     <%= f.text_field :info %>
     <br>
     Has this tournament been fully recorded? <%= f.check_box :finished %> <br>
+    (Do not mark as fully recorded until each deck that needs to be added 
+        to this turnament has been added!) <br>
     
     <%= f.submit "Update Tournament" %> <%= link_to "Back", tournament_path(@tournament) %>
 <% end %>
+
+<br>
+
+<table style="width:100%">
+  <tr>
+    <td> <h4> Place </h4> </td>
+    <td> <h4> Player Name </h4> </td> 
+    <td> <h4> Deck Title </h4> </td>
+    <td> <h4> Deck Link </h4> </td>
+    <td> <h4> Privacy </h4> </td>
+  </tr>
+
+    <% @tournament.decks.each do |deck| %>
+        <tr>
+            <td> <%= deck.tournament_placement %> </td>
+            <td> <%= deck.player_name %> </td>
+            <td> <%= deck.title %> </td>
+            <td> <%= link_to "View #{deck.title}", deck_path(deck) %> <br> </td>
+            <% if deck.shared == true %>
+                <td> Public: <%= deck.users.count %> users </td>
+            <% else %>
+                <td> Private: <%= deck.users.count %> users </td>
+            <% end %>
+        </tr>
+    <% end %> 
+  
+</table>

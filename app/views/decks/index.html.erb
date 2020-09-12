@@ -1,30 +1,43 @@
-<%= link_to "Home Page", root_path %>
+<% if current_user && current_user.admin == true %>
 
-<% if current_user %>
-
-    <% if current_user.admin == true %>
-        Hello Admin: <%= current_user.name %> <br>
-        <%= link_to "Admin Page", admin_path(current_user) %>
-    <% elsif current_user.admin == false %>
-        <%= link_to "Profile Page", user_path(current_user) %>
-    <% end %>
-
+    Hello Admin: <%= current_user.name %> <br>
+    <%= link_to "Admin Page", admin_path(current_user) %>
     <%= link_to "Log Out", logout_path %> <br>
     
 <% else %>
-    <%= link_to "Sign Up", signup_path %>
-    <%= link_to "Login", login_path %> <br>
+
+    <%= link_to "Home Page", root_path %> <br>
+    <%= link_to "View all tournaments", tournaments_path %> <br>
+    <% if current_user %>
+        Hello <%= current_user.name %> <br>
+        <%= link_to "Profile Page", user_path(current_user) %>
+        <%= link_to "Log Out", logout_path %> <br>
+    <% else %>
+        <%= link_to "Sign Up", signup_path %> <br>
+        <%= link_to "Login", login_path %> <br>
+    <% end %>
+
 <% end %>
 
 <h2> List of Public Decks </h2>
 
-<% @decks.each do |deck| %>
-    <%= deck.title %> <br>
-    <%= deck.description %> <br>
-    Created by: <%= deck.player_name %> <br>
-    Number of people that have saved this deck: <%= deck.users.count %> <br>
+<table style="width:100%">
+  <tr>
+    <td> <h4> Deck Title </h4> </td>
+    <td> <h4> Deck Description </h4> </td>
+    <td> <h4> Deck Creator </h4> </td>
+    <td> <h4> Deck Users </h4> </td>
+    <td> <h4> Deck Link </h4> </td>
+  </tr>
 
-    <%= link_to "View Deck", deck_path(deck) %> <br> 
-    tournament data for later <br>
-    <br>
-<% end %>
+    <% @decks.each do |deck| %>
+        <tr>
+            <td> <%= deck.title %> </td>
+            <td> <%= deck.description %> </td>
+            <td> <%= deck.player_name %> </td>
+            <td> <%= deck.users.count %> </td>
+            <td> <%= link_to "View #{deck.title}", deck_path(deck) %> <br> </td>
+        </tr>
+    <% end %> 
+  
+</table>
