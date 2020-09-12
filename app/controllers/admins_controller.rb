@@ -6,5 +6,8 @@ class AdminsController < ApplicationController
         @deck.admin_deck_delete
         redirect_to admin_path(current_user)
     end 
+
+    def admin_home
+    end 
     
 end 

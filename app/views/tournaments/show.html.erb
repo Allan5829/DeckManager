@@ -19,9 +19,15 @@ Info: <%= @tournament.info %> <br>
 <br>
 
 <% @tournament.decks.each do |deck| %>
-    <%= deck.title %> <br>
-    <%= deck.description %> <br>
-    Created by: <%= deck.player_name %> <br>
+    Title: <%= deck.title %> <br>
+    Description if any: <%= deck.description %> <br>
+    Created by: <%= deck.player_name %> <br> 
+
+    <% if deck.shared == true %>
+        Public with <%= deck.users.count %> users <br>
+    <% else %>
+        Private with <%= deck.users.count %> users <br>
+    <% end %>
 
     <%= link_to "View this decklist", deck_path(deck) %> <br> 
 

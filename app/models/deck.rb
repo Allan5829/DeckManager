@@ -10,7 +10,7 @@ class Deck < ApplicationRecord
     before_validation :remove_empty_cards 
 
     # Deck Object Validations
-    validates :title, presence: true
+    validates :title, :tournament_placement, presence: true
     validates :shared, inclusion: { in: [true, false] }
     validate :deck_count # deck must have 60 cards
     validate :no_duplicates # can't create 2 cards with the same information in certain cases

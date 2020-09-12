@@ -1,8 +1,29 @@
 <%= link_to "Home Page", root_path %> <%= link_to "Log Out", logout_path %> <br>
 <h4> Welcome Admin: <%= current_user.name %> </h4> 
 
+<p> To view all user created decks click "View all tournaments" and select the tournament "Public 
+    Decks" as that will include all public and private decks. "View all public decks" will only 
+    display public decks </p>
+<p> To view all decks from a respective tournament select that tournament. </p>
+<p> To delete a deck due to being inappropiate find the show page for that deck through tournaments 
+    and click on delete deck. </p>
+
 <%= link_to "View all tournaments", tournaments_path %> <br>
 <%= link_to "View all public decks", decks_path %> <br>
 
-<%= link_to "Record a Tournament?", new_tournament_path %> <br>
-<%= link_to "Make a new deck?", new_deck_path %> <br>
+<h3> How to record a tournament? </h3>
+<p> First, create a new tournament with a descriptive title and other relevant information. </p> 
+<p> Second, create new decks for each placement the tournament has recorded. 
+    (first-fourth = 4 decks) </p> 
+<p> Third, when making the decks make sure to select the right tournament title. </p> 
+<p> Last, if all of the decks have been created go edit the tournament and mark it as finished. </p>
+<%= link_to "New Tournament", new_tournament_path %> <br>
+<%= link_to "New Deck", new_deck_path %> <br>
+
+<br>
+<h3> Other admin responsibilities </h3>
+<p> Delete decks that are inappropiate due to: </p> 
+<p> -language </p>
+<p> -card or set names that are not applicable to pokemon (misspelling does not apply) </p>
+<p> -"bad data" decks that were saved when they shouldn't have or a user found a workaround </p>
+<p> -or private decks that no longer have any users in the Public Decks Tournament </p>
