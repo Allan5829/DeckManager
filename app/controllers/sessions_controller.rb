@@ -1,5 +1,4 @@
 class SessionsController < ApplicationController 
-    #skip_before_action :verify_authenticity_token, only: :create
     before_action :logged_in?, only: [:user_home]
 
     def signup
@@ -40,17 +39,7 @@ class SessionsController < ApplicationController
     end 
 
     def user_home
-    end 
-
-    def facebook_create
-        @user = User.find_or_create_by(uid: auth['uid']) do |u|
-            u.name = auth['info']['name']
-            u.email = auth['info']['email']
-        end
-       
-        session[:user_id] = @user.id
-        redirect_to user_path(@user)
-    end 
+    end  
 
     def github_create
         @user = User.find_or_create_from_auth(request.env['omniauth.auth'])
@@ -63,17 +52,13 @@ class SessionsController < ApplicationController
         end
       end
 
-    def home #testing purposes only, temporary
+    def home
     end 
 
     private
 
     def user_params
         params.require(:user).permit(:name, :email, :password, :admin, :uid)
-    end
-
-    def auth
-        request.env['omniauth.auth']
     end
 
 end
