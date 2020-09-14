@@ -7,15 +7,17 @@
 <% else %>
 
     <%= link_to "Home Page", root_path %> <br>
-    <%= link_to "View all tournaments", tournaments_path %> <br>
+    
     <% if current_user %>
         Hello <%= current_user.name %> <br>
         <%= link_to "Profile Page", user_path(current_user) %>
         <%= link_to "Log Out", logout_path %> <br>
     <% else %>
-        <%= link_to "Sign Up", signup_path %> <br>
+        <%= link_to "Sign Up", signup_path %> 
         <%= link_to "Login", login_path %> <br>
     <% end %>
+
+    <%= link_to "View all tournaments", tournaments_path %> <br>
 
 <% end %>
 

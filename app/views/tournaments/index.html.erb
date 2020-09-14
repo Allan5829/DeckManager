@@ -1,6 +1,6 @@
 <% if current_user && current_user.admin == true %>
 
-    Hello Admin: <%= current_user.name %> <br>
+    Welcome Admin: <%= current_user.name %> <br>
     <%= link_to "Admin Page", admin_path(current_user) %>
     <%= link_to "Log Out", logout_path %> <br> 
 
@@ -45,15 +45,17 @@
 
 <% else %>
     <%= link_to "Home Page", root_path %> <br>
-    <%= link_to "View all public decks", decks_path %> <br>
+
     <% if current_user %>
-        Hello <%= current_user.name %> <br>
+        Hello User: <%= current_user.name %> <br>
         <%= link_to "Profile Page", user_path(current_user) %>
         <%= link_to "Log Out", logout_path %> <br>
     <% else %>
-        <%= link_to "Sign Up", signup_path %> <br>
+        <%= link_to "Sign Up", signup_path %> 
         <%= link_to "Login", login_path %> <br>
     <% end %>
+
+    <%= link_to "View all public decks", decks_path %> <br>
 
     <table style="width:100%">
     <tr>
