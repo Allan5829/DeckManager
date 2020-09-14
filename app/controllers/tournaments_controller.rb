@@ -6,13 +6,7 @@ class TournamentsController < ApplicationController
             @tournaments = Tournament.all
         else
             @t = Tournament.where('id > 1', finished: true)
-            if params[:sort] == "Most Recent"
-                @tournaments = @t.sort {|a,b| b.created_at <=> a.created_at}
-            elsif params[:sort] == "Least Recent"
-                @tournaments = @t.sort {|a,b| a.created_at <=> b.created_at}
-            else 
-                @tournaments = @t.sort {|a,b| b.created_at <=> a.created_at}
-            end 
+            @tournaments = Tournament.sort_tournaments(params[:sort], @t)
         end 
     end 
     

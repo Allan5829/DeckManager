@@ -1,19 +1,19 @@
 <h1> Signup as a new User </h1> <br>
 
 <% if @user.errors.any? %>
-        <div id="error_explanation">
-        <h2>
-            <%= pluralize(@user.errors.count, "error") %>
-            prohibited this user from signing up:
-        </h2>
+    <div id="error_explanation">
+    <h2>
+        <%= pluralize(@user.errors.count, "error") %>
+        prohibited this user from signing up:
+    </h2>
     
-        <ul>
-        <% @user.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-        <% end %>
-        </ul>
-        </div>
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
     <% end %>
+    </ul>
+    </div>
+<% end %>
 
 <%= form_for :user, url: '/user/signup' do |f| %>
 

@@ -1,4 +1,4 @@
-<h1> Login </h1> <br>
+<h1> Login to an Existing Account </h1> <br>
 
 <%= form_for :user, url: '/user/login' do |f| %>
     
@@ -13,7 +13,7 @@
 <% end %>
 <br>
 
-<h1> Github </h1>
+<h1> Login With Github </h1>
 <p> *If the username/email is already associated with another account or the github account doesn't 
 have an email associated you will be asked to provide a new one.* </p> 
 <%= link_to 'Log in with GitHub!', '/auth/github' %>

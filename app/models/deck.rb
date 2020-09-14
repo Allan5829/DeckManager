@@ -16,7 +16,7 @@ class Deck < ApplicationRecord
     validate :no_duplicates # can't create 2 cards with the same information in certain cases
     validate :pokemon_count # can't have more than 4 pokemon with the same name
 
-    #Model Methods Start
+    # Model Methods Start
 
     @rows = 20
     @edit_rows = 1
@@ -82,6 +82,18 @@ class Deck < ApplicationRecord
         self.destroy
         
         return true
+    end 
+
+    def self.sort_decks (sort, d)
+        if sort == "Number of Users"
+            d.sort {|a,b| b.users.count <=> a.users.count}
+        elsif sort == "Newest Created"
+            d.sort {|a,b| b.created_at <=> a.created_at}
+        elsif sort == "Oldest Created"
+            d.sort {|a,b| a.created_at <=> b.created_at}
+        else 
+            d.sort {|a,b| b.created_at <=> a.created_at}
+        end
     end 
 
     # Validation Methods Start

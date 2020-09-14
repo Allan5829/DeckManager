@@ -3,7 +3,6 @@ class Card < ApplicationRecord
 
     # Card Object Validations
     
-    
     validates :pokemon, :trainer, :basic_energy, :special_energy, inclusion: { in: [true, false] }
     validate :one_card_type
 
@@ -24,7 +23,7 @@ class Card < ApplicationRecord
         card_type += 1 if self.basic_energy
 
         if card_type > 1
-            errors.add(:error, "can't be defined as two types of cards")
+            errors.add(:error, "can't be defined as two+ types of cards")
         elsif card_type < 1
             errors.add(:error, "must be defined as a type of card")
         end 

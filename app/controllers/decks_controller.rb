@@ -3,21 +3,12 @@ class DecksController < ApplicationController
 
     def index
         @d = Deck.where(shared: true)
-        if params[:sort] == "Number of Users"
-            @decks = @d.sort {|a,b| b.users.count <=> a.users.count}
-        elsif params[:sort] == "Newest Created"
-            @decks = @d.sort {|a,b| b.created_at <=> a.created_at}
-        elsif params[:sort] == "Oldest Created"
-            @decks = @d.sort {|a,b| a.created_at <=> b.created_at}
-        else 
-            @decks = @d.sort {|a,b| b.created_at <=> a.created_at}
-        end 
+        @decks = Deck.sort_decks(params[:sort], @d) 
     end 
 
     def show
         @deck = Deck.find_by(id: params[:id])
         @deck_counts = @deck.get_card_counts
-        #scope method around 
     end 
 
     def new
@@ -27,18 +18,12 @@ class DecksController < ApplicationController
     end 
 
     def create
-        @deck = Deck.new(deck_params)
-
-        if @deck.save
-            UserDeck.create(:user_id => current_user.id, :deck_id => @deck.id) 
-            #check if this ^ can be refactored
-
+        if current_user.decks.create(deck_params)
             if current_user.admin == true
-                redirect_to tournament_path(@deck.tournament)
+                redirect_to tournament_path(current_user.decks.last.tournament)
             else
                 redirect_to user_path(current_user)
             end  
-            
         else
             render :new
         end  

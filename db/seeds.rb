@@ -51,7 +51,7 @@ deck1 = Deck.create(
         { pokemon: false, trainer: false, basic_energy: false, special_energy: true, 
         name: 'Heat Energy', count: 4, set_info: '' }
 
-    ])
+    ]) 
 
 UserDeck.create(:user_id => 1, :deck_id => 1) 
 
