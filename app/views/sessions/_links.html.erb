@@ -1,0 +1,8 @@
+<% if current_user %>
+    Hello User: <%= current_user.name %> <br>
+    <%= link_to "Profile Page", user_path(current_user) %>
+    <%= link_to "Log Out", logout_path %> <br>
+<% else %>
+    <%= link_to "Sign Up", signup_path %> 
+    <%= link_to "Login", login_path %> <br>
+<% end %>
