@@ -2,8 +2,6 @@
 <%= link_to "View all public decks", decks_path %> <br>
 <%= link_to "View all tournaments", tournaments_path %> <br>
 <%= link_to "Make a new deck?", new_deck_path %> <br>
- 
-<br>
 
 <h3> Your Decks </h3>
 
@@ -16,22 +14,20 @@
         <td> <h4> Deck Link </h4> </td>
     </tr>
 
-        <% current_user.decks.each do |deck| %>
-            <tr>
-                <td> <%= deck.title %> </td>
-                <td> <%= deck.description %> </td>
-                <td> <%= deck.player_name %> </td>
-                <% if deck.tournament_id == 1 %>
-                    <% if deck.shared == true %>
-                        <td> Everyone </td>
-                    <% else %>
-                        <td> Only You </td>
-                    <% end %>
-                <% else %>
-                    <td> Everyone </td>
-                <% end %> 
-                <td> <%= link_to "View #{deck.title}", deck_path(deck) %> <br> </td>
-            </tr>
-        <% end %> 
+    <% current_user.decks.each do |deck| %>
+        <tr>
+            <td> <%= deck.title %> </td>
+            <td> <%= deck.description %> </td>
+            <td> <%= deck.player_name %> </td>
+
+            <% if deck.tournament_id == 1 && deck.shared == false %>
+                <td> Only You </td>
+            <% else %>
+                <td> Everyone </td>
+            <% end %> 
+
+            <td> <%= link_to "View #{deck.title}", deck_path(deck) %> <br> </td>
+        </tr>
+    <% end %> 
     
-    </table>
+</table>

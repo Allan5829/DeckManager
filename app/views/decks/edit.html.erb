@@ -6,60 +6,9 @@
 
 <h1> Update deck </h1> <br>
 
-<% if @deck.errors.any? %>
-        <div id="error_explanation">
-        <h2>
-            <%= pluralize(@deck.errors.count, "error") %>
-            prohibited the deck from being created:
-        </h2>
-    
-        <ul>
-        <% @deck.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-        <% end %>
-        </ul>
-        </div>
-    <% end %>
-
 <%= form_for @deck do |f| %> 
 
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-    <br>
-    <%= f.label :description %>
-    <%= f.text_field :description %>
-    <br>
-
-    <% if current_user.admin == true %> 
-        Name of the Player: <%= f.text_field :player_name %> 
-        <br>
-        Select the tournament this deck is being created for: 
-        <%= f.collection_select :tournament_id, Tournament.where(finished: false), :id, :event_name %>
-        <br>
-        What place did this deck get (first = 1): <%= f.number_field :tournament_placement %>
-        <br>
-
-        <%= f.hidden_field :shared, :value => false %>
-    <% elsif current_user.admin == false %>
-        Click the box if you would like your deck to be public.
-        <%= f.check_box :shared %>
-        <br>
-
-        <%= f.hidden_field :player_name, :value => current_user.name %>
-        <%= f.hidden_field :tournament_id, :value => 1 %>
-        <%= f.hidden_field :tournament_placement, :value => 1 %>
-    <% end %>
-
-    <%= f.fields_for :cards, @card do |cf| %>
-        Pokemon? <%= cf.check_box :pokemon %>
-        Trainer? <%= cf.check_box :trainer %>
-        Special? <%= cf.check_box :special_energy %>
-        Basic Energy? <%= cf.check_box :basic_energy %>
-        Quantity: <%= cf.number_field :count %>
-        Card Name: <%= cf.text_field :name %>
-        Set & Card Number: <%= cf.text_field :set_info %>
-        <br>
-    <% end %>
+    <%= render 'form', f: f  %>
     
     <%= f.submit "Update Deck" %> <%= link_to "Back", deck_path(@deck) %>
 <% end %>

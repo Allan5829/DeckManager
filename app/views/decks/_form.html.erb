@@ -1,0 +1,71 @@
+<% if @deck.errors.any? %>
+    <div id="error_explanation">
+    <h2>
+        <%= pluralize(@deck.errors.count, "error") %>
+        prohibited the deck from being created:
+    </h2>
+    
+    <ul>
+    <% @deck.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+    <% end %>
+    </ul>
+    </div>
+<% end %>
+
+Name of this deck: <%= f.text_field :title %>
+<br>
+Optional description about the deck: <%= f.text_field :description %>
+<br>
+    
+<% if current_user.admin == true %> 
+    Name of the Player: <%= f.text_field :player_name %> 
+    <br>
+    Select the tournament this deck is being created for: 
+    <%= f.collection_select :tournament_id, Tournament.where(finished: false), :id, :event_name %>
+    <br>
+    What place did this deck get (first = 1): <%= f.number_field :tournament_placement %>
+    <br>
+
+    <%= f.hidden_field :shared, :value => false %>
+<% elsif current_user.admin == false %>
+    Click the box if you would like your deck to be public.
+    <%= f.check_box :shared %>
+    <br>
+
+    <%= f.hidden_field :player_name, :value => current_user.name %>
+    <%= f.hidden_field :tournament_id, :value => 1 %>
+    <%= f.hidden_field :tournament_placement, :value => 0 %>
+<% end %>
+    
+<h2>Fill Out Decklist Below</h2>
+
+<h4> How to fill out and deck construction rules: </h4>
+<p> -Your deck must consist of 60 cards, each row represents a card(s) </p>
+<p> -Each card must be identified by the type of card of card it is, check the respective box 
+        accordingly, only check one box per card </p>
+<p> -Fill out the quantity area with the how many copies you are playing of that card in that 
+    line, a deck may only have up to 4 copies of the same card in a deck, unless it is a basic 
+    energy </p>
+<p> -A deck may only have up to 4 pokemon with the same name, even if they have a different set and
+    card number so you can have different cards with the same pokemon in a deck </p>
+<p> -Fill out the card name area for every card in the deck and for pokemon you also have to fill
+    out the set and card number area for each card that is checked as a pokemon </p>
+<p> -IMPORTANT, if you need more rows for cards, Click "Add Card", 
+    if you know how many rows you need you can Click "Remove Card" to remove a row.
+    Do this before filling out the list or else you will lose progress. 
+    You may have extra empty rows. </p>
+    
+<br>
+
+<%= f.fields_for :cards, @card do |cf| %>
+    Pokemon? <%= cf.check_box :pokemon %>
+    Trainer? <%= cf.check_box :trainer %>
+    Special? <%= cf.check_box :special_energy %>
+    Basic Energy? <%= cf.check_box :basic_energy %>
+    Quantity: <%= cf.number_field :count %>
+    Card Name: <%= cf.text_field :name %>
+    Set & Card Number: <%= cf.text_field :set_info %>
+    <br>
+<% end %>
+<br>

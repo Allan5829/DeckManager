@@ -11,6 +11,7 @@ class TournamentsController < ApplicationController
     
     def show
         @tournament = Tournament.find_by(id: params[:id])
+        #@tournament.decks = @tournament.decks.sort? sort by deck placements from decending order
     end 
 
     def new
