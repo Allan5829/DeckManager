@@ -1,31 +1,9 @@
 <h1> Update Tournament </h1> <br>
 
-<% if @tournament.errors.any? %>
-    <div id="error_explanation">
-    <h2>
-        <%= pluralize(@tournament.errors.count, "error") %>
-        prohibited this tournament from being updated:
-    </h2>
-    
-    <ul>
-    <% @tournament.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-    <% end %>
-    </ul>
-    </div>
-<% end %>
-
 <%= form_for @tournament do |f| %>
 
-    <%= f.label :event_name %>
-    <%= f.text_field :event_name %>
-    <br>
-    <%= f.label :event_date %>
-    <%= f.text_field :event_date %>
-    <br>
-    <%= f.label :info %>
-    <%= f.text_field :info %>
-    <br>
+    <%= render 'form', f: f  %>
+
     Has this tournament been fully recorded? <%= f.check_box :finished %> <br>
     (Do not mark as fully recorded until each deck that needs to be added 
         to this turnament has been added!) <br>
