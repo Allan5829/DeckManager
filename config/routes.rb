@@ -9,7 +9,6 @@ Rails.application.routes.draw do
 
   get 'user/home/:id', to: 'sessions#user_home', as: :user #user_path
 
-  #get '/auth/github/callback', to: 'sessions#github_create'  
   match '/auth/github/callback', to: 'sessions#github_create', via: [:get, :post]
 
   root 'sessions#home' #testing purposes only, temporary  

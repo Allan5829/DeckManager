@@ -6,7 +6,17 @@
     <%= link_to "View all tournaments", tournaments_path %> <br>
 <% end %>
 
+
+
 <h2> List of Public Decks </h2>
+
+<%= form_tag decks_path, method: :get do %>
+    <%= select_tag "sort", options_for_select(
+        ["Number of Users", 
+        "Newest Created", 
+        "Oldest Created"]), include_blank: true %>
+    <%= submit_tag "Sort By" %>
+<% end %>
 
 <table style="width:100%">
   <tr>

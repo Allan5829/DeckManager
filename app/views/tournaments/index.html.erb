@@ -45,6 +45,13 @@
     <%= render 'sessions/links' %>
     <%= link_to "View all public decks", decks_path %> <br>
 
+    <%= form_tag tournaments_path, method: :get do %>
+        <%= select_tag "sort", options_for_select(
+            ["Most Recent", 
+            "Least Recent"]), include_blank: true %>
+        <%= submit_tag "Sort By" %>
+    <% end %>
+
     <table style="width:100%">
     <tr>
         <td> <h4> Tournament Name </h4> </td>

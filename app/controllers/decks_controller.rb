@@ -2,13 +2,22 @@ class DecksController < ApplicationController
     before_action :logged_in?, except: [:index, :show]
 
     def index
-        @decks = Deck.where(shared: true)
+        @d = Deck.where(shared: true)
+        if params[:sort] == "Number of Users"
+            @decks = @d.sort {|a,b| b.users.count <=> a.users.count}
+        elsif params[:sort] == "Newest Created"
+            @decks = @d.sort {|a,b| b.created_at <=> a.created_at}
+        elsif params[:sort] == "Oldest Created"
+            @decks = @d.sort {|a,b| a.created_at <=> b.created_at}
+        else 
+            @decks = @d.sort {|a,b| b.created_at <=> a.created_at}
+        end 
     end 
 
     def show
         @deck = Deck.find_by(id: params[:id])
         @deck_counts = @deck.get_card_counts
-        #scope method around here?
+        #scope method around 
     end 
 
     def new

@@ -85,7 +85,7 @@ deck3 = Deck.create(
     shared: false, 
     player_name: 'Ash Ketchum', 
     tournament_id: 2,
-    tournament_placement: 1,
+    tournament_placement: 4,
     cards_attributes:[ 
          
         { pokemon: true, trainer: false, basic_energy: false, special_energy: false, 
@@ -217,7 +217,7 @@ deck6 = Deck.create(
     shared: false, 
     player_name: 'Brock', 
     tournament_id: 2,
-    tournament_placement: 4,
+    tournament_placement: 1,
     cards_attributes:[ 
          
         { pokemon: true, trainer: false, basic_energy: false, special_energy: false, 

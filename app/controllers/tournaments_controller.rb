@@ -5,13 +5,20 @@ class TournamentsController < ApplicationController
         if current_user && current_user.admin == true
             @tournaments = Tournament.all
         else
-            @tournaments = Tournament.where('id > 1', finished: true)
+            @t = Tournament.where('id > 1', finished: true)
+            if params[:sort] == "Most Recent"
+                @tournaments = @t.sort {|a,b| b.created_at <=> a.created_at}
+            elsif params[:sort] == "Least Recent"
+                @tournaments = @t.sort {|a,b| a.created_at <=> b.created_at}
+            else 
+                @tournaments = @t.sort {|a,b| b.created_at <=> a.created_at}
+            end 
         end 
     end 
     
     def show
         @tournament = Tournament.find_by(id: params[:id])
-        #@tournament.decks = @tournament.decks.sort? sort by deck placements from decending order
+        @decks = @tournament.decks.sort {|a,b| a.tournament_placement <=> b.tournament_placement}
     end 
 
     def new
