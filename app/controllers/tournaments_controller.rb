@@ -5,7 +5,7 @@ class TournamentsController < ApplicationController
         if current_user && current_user.admin == true
             @tournaments = Tournament.all
         else
-            @t = Tournament.where('id > 1', finished: true)
+            @t = Tournament.where('id > 1').where(finished: true)
             @tournaments = Tournament.sort_tournaments(params[:sort], @t)
         end 
     end 
