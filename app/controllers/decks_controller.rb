@@ -18,7 +18,9 @@ class DecksController < ApplicationController
     end 
 
     def create
-        if current_user.decks.create(deck_params)
+        @deck = Deck.new(deck_params)
+        if @deck.save
+            current_user.decks << @deck
             if current_user.admin == true
                 redirect_to tournament_path(current_user.decks.last.tournament)
             else
