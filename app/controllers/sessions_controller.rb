@@ -1,5 +1,4 @@
 class SessionsController < ApplicationController 
-    before_action :logged_in?, only: [:user_home]
 
     def signup
         @user = User.new
@@ -36,10 +35,7 @@ class SessionsController < ApplicationController
     def logout
         session.clear
         redirect_to '/'
-    end 
-
-    def user_home
-    end  
+    end   
 
     def github_create
         @user = User.find_or_create_from_auth(request.env['omniauth.auth'])

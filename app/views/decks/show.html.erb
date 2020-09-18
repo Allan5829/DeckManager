@@ -5,7 +5,7 @@
     <%= render 'sessions/links' %>
 <% end %>
 
-<%= link_to "View all public decks", decks_path %> <br>
+<%= link_to "View all public decks", user_decks_path(current_user) %> <br>
 
 <h2> <%= @deck.title %> </h2>
 <%= @deck.description %> <br>

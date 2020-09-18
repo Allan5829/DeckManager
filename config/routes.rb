@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     #admin_delete_deck_path(deck)
 
   # Deck Routes
-  resources :decks, except: :destroy #index, new, create, edit, update
+  #resources :decks, except: :destroy #index, new, create, edit, update
 
   get 'decks/:id/copy', to: 'decks#copy_deck', as: :copy_deck #copy_deck_path(deck)
   get 'decks/:id/delete', to: 'decks#delete_deck', as: :delete_deck #delete_deck_path(deck)
@@ -25,11 +25,15 @@ Rails.application.routes.draw do
   get 'logout', to: 'sessions#logout' #logout_path
 
   root 'sessions#home' #testing purposes only, temporary 
-  get 'user/home/:id', to: 'sessions#user_home', as: :user #user_path
 
   match '/auth/github/callback', to: 'sessions#github_create', via: [:get, :post]
 
   # Tournament Routes
   resources :tournaments, except: :destroy
+
+  # User Routes
+  resources :users, only: :show do
+    resources :decks, except: :destroy #index, new, create, edit, update
+  end 
 
 end

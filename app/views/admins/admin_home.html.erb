@@ -3,10 +3,10 @@
 
 <h2> Links </h2>
 <%= link_to "View all tournaments", tournaments_path %> <br>
-<%= link_to "View all public decks", decks_path %> <br>
+<%= link_to "View all public decks", user_decks_path(current_user) %> <br>
 <%= link_to "View decks you've created", admin_decks_path %> <br>
 <%= link_to "New Tournament", new_tournament_path %> <br>
-<%= link_to "New Deck", new_deck_path %> <br>
+<%= link_to "New Deck", new_user_deck_path(current_user) %> <br>
 
 <h3> Notes </h3>
     <p> To view all user created decks click "View all tournaments" and select the tournament "Public 

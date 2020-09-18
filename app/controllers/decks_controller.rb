@@ -19,6 +19,7 @@ class DecksController < ApplicationController
 
     def create
         @deck = Deck.new(deck_params)
+        #binding.pry
         if @deck.save
             current_user.decks << @deck
             if current_user.admin == true
@@ -40,7 +41,7 @@ class DecksController < ApplicationController
         @deck = Deck.find_by(id: params[:id])
 
         if @deck.update(deck_params)
-            redirect_to deck_path(@deck)
+            redirect_to user_deck_path(@deck)
         else
             render :edit
         end 
@@ -63,20 +64,20 @@ class DecksController < ApplicationController
     def add_cards
         if params[:deck_id].present?
             Deck.row_increase("edit")
-            redirect_to edit_deck_path(params[:deck_id])
+            redirect_to edit_user_deck_path(params[:deck_id])
         else
             Deck.row_increase("new")
-            redirect_to new_deck_path
+            redirect_to new_user_deck_path
         end 
     end
 
     def remove_cards
         if params[:deck_id].present?
             Deck.row_decrease("edit")
-            redirect_to edit_deck_path(params[:deck_id])
+            redirect_to edit_user_deck_path(params[:deck_id])
         else
             Deck.row_decrease("new")
-            redirect_to new_deck_path
+            redirect_to new_user_deck_path
         end 
     end
 

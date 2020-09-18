@@ -17,7 +17,7 @@
             <td> <%= deck.title %> </td>
             <td> <%= deck.player_name %> </td>
             <td> <%= deck.users.count %> </td>
-            <td> <%= link_to "View #{deck.title}", deck_path(deck) %> <br> </td>
+            <td> <%= link_to "View #{deck.title}", user_deck_path(current_user, deck) %> <br> </td>
             <td> <%= link_to "View #{deck.tournament.event_name}", tournament_path(deck.tournament) %> 
                 <br> </td>
         </tr>

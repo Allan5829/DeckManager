@@ -10,7 +10,7 @@
 
     <%= render 'form', f: f  %>
     
-    <%= f.submit "Update Deck" %> <%= link_to "Back", deck_path(@deck) %>
+    <%= f.submit "Update Deck" %> <%= link_to "Back", user_deck_path(current_user, @deck) %>
 <% end %>
 
 <%= form_tag add_card_path do %>
