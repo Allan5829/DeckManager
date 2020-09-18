@@ -1,33 +1,57 @@
 <% if current_user && current_user.admin == true %>
     <%= render 'admins/links' %>
+
+    <h2> List of Decks You Created </h2>
+
+    <table style="width:100%">
+    <tr>
+        <td> <h4> Deck Title </h4> </td>
+        <td> <h4> Deck Player </h4> </td>
+        <td> <h4> Deck Users </h4> </td>
+        <td> <h4> Deck Link </h4> </td>
+        <td> <h4> Tournament Link </h4> </td>
+    </tr>
+
+        <% current_user.decks.each do |deck| %>
+            <tr>
+                <td> <%= deck.title %> </td>
+                <td> <%= deck.player_name %> </td>
+                <td> <%= deck.users.count %> </td>
+                <td> <%= link_to "View #{deck.title}", user_deck_path(current_user, deck) %> <br> </td>
+                <td> <%= link_to "View #{deck.tournament.event_name}", tournament_path(deck.tournament) %> 
+                    <br> </td>
+            </tr>
+        <% end %> 
+    
+    </table>
+
 <% else %>
     <%= link_to "Home Page", root_path %> <br>
     <%= render 'sessions/links' %>
     <%= link_to "View all tournaments", tournaments_path %> <br>
     <%= link_to "View all public decks", decks_public_path %> <br>
+
+    <h2> List of Your Decks </h2>
+
+    <table style="width:100%">
+    <tr>
+        <td> <h4> Deck Title </h4> </td>
+        <td> <h4> Deck Description </h4> </td>
+        <td> <h4> Deck Creator </h4> </td>
+        <td> <h4> Deck Users </h4> </td>
+        <td> <h4> Deck Link </h4> </td>
+    </tr>
+
+        <% current_user.decks.each do |deck| %>
+            <tr>
+                <td> <%= deck.title %> </td>
+                <td> <%= deck.description %> </td>
+                <td> <%= deck.player_name %> </td>
+                <td> <%= deck.users.count %> </td>
+                <td> <%= link_to "View #{deck.title}", user_deck_path(deck.users.first, deck) %> <br> </td>
+            </tr>
+        <% end %> 
+    
+    </table>
+
 <% end %>
-
-
-
-<h2> List of Your Decks </h2>
-
-<table style="width:100%">
-  <tr>
-    <td> <h4> Deck Title </h4> </td>
-    <td> <h4> Deck Description </h4> </td>
-    <td> <h4> Deck Creator </h4> </td>
-    <td> <h4> Deck Users </h4> </td>
-    <td> <h4> Deck Link </h4> </td>
-  </tr>
-
-    <% current_user.decks.each do |deck| %>
-        <tr>
-            <td> <%= deck.title %> </td>
-            <td> <%= deck.description %> </td>
-            <td> <%= deck.player_name %> </td>
-            <td> <%= deck.users.count %> </td>
-            <td> <%= link_to "View #{deck.title}", user_deck_path(deck.users, deck) %> <br> </td>
-        </tr>
-    <% end %> 
-  
-</table>

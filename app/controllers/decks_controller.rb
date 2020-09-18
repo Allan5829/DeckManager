@@ -1,5 +1,5 @@
 class DecksController < ApplicationController 
-    before_action :logged_in?, except: [:decks_public, :show]
+    before_action :logged_in?, except: [:public_deck, :show]
 
     def index
         
@@ -47,8 +47,15 @@ class DecksController < ApplicationController
     end 
 
     def public_deck
-        @d = Deck.where(shared: true)
-        @decks = Deck.sort_decks(params[:sort], @d)
+        if params[:sort] == "Number of Users"
+            @decks = Deck.most_users
+        elsif params[:sort] == "Newest Created"
+            @decks = Deck.newest_created
+        elsif params[:sort] == "Oldest Created"
+            @decks = Deck.oldest_created
+        else 
+            @decks = Deck.newest_created
+        end
     end 
 
     def copy_deck #method for a user to save a deck
