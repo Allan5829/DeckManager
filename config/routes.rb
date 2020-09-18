@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     #admin_delete_deck_path(deck)
 
   # Deck Routes
-  #resources :decks, except: :destroy #index, new, create, edit, update
+  get 'decks/public', to: 'decks#public_deck'
 
   get 'decks/:id/copy', to: 'decks#copy_deck', as: :copy_deck #copy_deck_path(deck)
   get 'decks/:id/delete', to: 'decks#delete_deck', as: :delete_deck #delete_deck_path(deck)

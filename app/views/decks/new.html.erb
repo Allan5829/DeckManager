@@ -6,7 +6,7 @@
 
 <h1> Make your new deck now! </h1> <br>
 
-<%= form_for @deck do |f| %>
+<%= form_for @deck, :url => user_decks_path(current_user), method: :post do |f| %>
 
     <%= render 'form', f: f  %>
 

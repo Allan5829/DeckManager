@@ -2,9 +2,9 @@
 <h4> Welcome Admin: <%= current_user.name %> </h4> 
 
 <h2> Links </h2>
+<%= link_to "View all public decks", decks_public_path %> <br>
 <%= link_to "View all tournaments", tournaments_path %> <br>
-<%= link_to "View all public decks", user_decks_path(current_user) %> <br>
-<%= link_to "View decks you've created", admin_decks_path %> <br>
+<%= link_to "View all of your decks", user_decks_path(current_user) %> <br>
 <%= link_to "New Tournament", new_tournament_path %> <br>
 <%= link_to "New Deck", new_user_deck_path(current_user) %> <br>
 

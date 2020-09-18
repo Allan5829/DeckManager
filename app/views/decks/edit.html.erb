@@ -6,7 +6,7 @@
 
 <h1> Update deck </h1> <br>
 
-<%= form_for @deck do |f| %> 
+<%= form_for @deck, :url => user_deck_path(current_user, @deck), method: :patch do |f| %> 
 
     <%= render 'form', f: f  %>
     

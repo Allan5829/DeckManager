@@ -1,9 +1,8 @@
 class DecksController < ApplicationController 
-    before_action :logged_in?, except: [:index, :show]
+    before_action :logged_in?, except: [:decks_public, :show]
 
     def index
-        @d = Deck.where(shared: true)
-        @decks = Deck.sort_decks(params[:sort], @d) 
+        
     end 
 
     def show
@@ -25,7 +24,7 @@ class DecksController < ApplicationController
             if current_user.admin == true
                 redirect_to tournament_path(current_user.decks.last.tournament)
             else
-                redirect_to user_path(current_user)
+                redirect_to user_deck_path(current_user, @deck)
             end  
         else
             render :new
@@ -45,6 +44,11 @@ class DecksController < ApplicationController
         else
             render :edit
         end 
+    end 
+
+    def public_deck
+        @d = Deck.where(shared: true)
+        @decks = Deck.sort_decks(params[:sort], @d)
     end 
 
     def copy_deck #method for a user to save a deck
