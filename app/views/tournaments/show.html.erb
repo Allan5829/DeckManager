@@ -31,7 +31,7 @@
                 <td> <%= deck.tournament_placement %> </td>
                 <td> <%= deck.player_name %> </td>
                 <td> <%= deck.title %> </td>
-                <td> <%= link_to "View #{deck.title}", user_deck_path(deck.users.first, deck) %> <br> </td>
+                <td> <%= link_to "View #{deck.title}", user_deck_path(get_user_id(deck), deck) %> <br> </td>
                 <% if deck.shared == true %>
                     <td> Public: <%= deck.users.count %> users </td>
                 <% else %>
@@ -65,7 +65,7 @@
                 <td> <%= deck.tournament_placement %> </td>
                 <td> <%= deck.player_name %> </td>
                 <td> <%= deck.title %> </td>
-                <td> <%= link_to "View #{deck.title}", user_deck_path(deck.users.first, deck) %> <br> </td>
+                <td> <%= link_to "View #{deck.title}", user_deck_path(get_user_id(deck), deck) %> <br> </td>
             </tr>
         <% end %> 
     

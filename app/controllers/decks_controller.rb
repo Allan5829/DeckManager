@@ -7,6 +7,7 @@ class DecksController < ApplicationController
 
     def show
         @deck = Deck.find_by(id: params[:id])
+        @note = UserDeck.find_by(:user_id => current_user.id, :deck_id => @deck.id)
         @deck_counts = @deck.get_card_counts
     end 
 
@@ -18,9 +19,9 @@ class DecksController < ApplicationController
 
     def create
         @deck = Deck.new(deck_params)
-        #binding.pry
+        
         if @deck.save
-            current_user.decks << @deck
+            UserDeck.create(:user_id => current_user.id, :deck_id => @deck.id, :notes => user_deck_params)
             if current_user.admin == true
                 redirect_to tournament_path(current_user.decks.last.tournament)
             else
@@ -38,8 +39,11 @@ class DecksController < ApplicationController
 
     def update
         @deck = Deck.find_by(id: params[:id])
+        @note = UserDeck.find_by(:user_id => current_user.id, :deck_id => @deck.id)
 
-        if @deck.update(deck_params)
+        if @deck.update(deck_params) 
+            @note.notes = user_deck_params
+            @note.save
             redirect_to user_deck_path(@deck)
         else
             render :edit
@@ -108,6 +112,10 @@ class DecksController < ApplicationController
             :set_info,
             :id
         ])
+    end 
+
+    def user_deck_params
+        params.require(:notes)
     end 
 
 end 

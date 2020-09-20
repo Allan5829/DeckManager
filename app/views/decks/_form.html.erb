@@ -15,7 +15,7 @@
 
 Name of this deck: <%= f.text_field :title %>
 <br>
-Your notes about the deck: <%= f.text_field :notes %>
+Your notes about the deck: <%= text_field_tag :notes %>
 <br>
     
 <% if current_user.admin == true %> 

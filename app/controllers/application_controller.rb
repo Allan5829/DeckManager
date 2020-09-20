@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
 
-    helper_method :current_user, :logged_in?, :admin_logged_in?
+    helper_method :current_user, :logged_in?, :admin_logged_in?, :get_user_id
 
     def current_user
         @current_user ||= User.find_by(id: session[:user_id])
@@ -20,6 +20,16 @@ class ApplicationController < ActionController::Base
         else
             redirect_to '/'
         end
+    end 
+
+    def get_user_id(deck) #returns first user id of this deck
+        ud = UserDeck.find_by(:deck_id => deck.id)
+        if ud
+            ud.user_id
+        else
+            0
+        end 
+        
     end 
 
 end

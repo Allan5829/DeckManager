@@ -14,8 +14,7 @@ tournament1 = Tournament.create(
     )
 
 deck1 = Deck.create(
-    title: 'Test Deck 1', 
-    description: 'description for test deck 1', 
+    title: 'Test Deck 1',  
     shared: true, 
     player_name: 'Allan5829', 
     tournament_id: 1,
@@ -57,13 +56,12 @@ deck1 = Deck.create(
 
     ]) 
 
-UserDeck.create(:user_id => 1, :deck_id => 1) 
-UserDeck.create(:user_id => 4, :deck_id => 1)
-UserDeck.create(:user_id => 7, :deck_id => 1)
+UserDeck.create(:user_id => 1, :deck_id => 1, :notes => "first practice deck") 
+UserDeck.create(:user_id => 4, :deck_id => 1, :notes => "copied deck")
+UserDeck.create(:user_id => 7, :deck_id => 1, :notes => "copied deck")
 
 deck2 = Deck.create(
     title: 'ALL ENERGY AHAHAHA', 
-    description: 'example deck to showcase an admin deleting a deck', 
     shared: true, 
     player_name: 'name', 
     tournament_id: 1,
@@ -75,8 +73,8 @@ deck2 = Deck.create(
 
     ])
 
-UserDeck.create(:user_id => 1, :deck_id => 2)
-UserDeck.create(:user_id => 2, :deck_id => 2)
+UserDeck.create(:user_id => 1, :deck_id => 2, :notes => "")
+UserDeck.create(:user_id => 2, :deck_id => 2, :notes => "these are troll notes")
 
 tournament2 = Tournament.create(
     event_name: 'League Challenge', 
@@ -87,7 +85,6 @@ tournament2 = Tournament.create(
 
 deck3 = Deck.create(
     title: 'Charizard Deck', 
-    description: '', 
     shared: false, 
     player_name: 'Ash Ketchum', 
     tournament_id: 2,
@@ -131,7 +128,6 @@ deck3 = Deck.create(
 
 deck4 = Deck.create(
     title: 'Blastoise Deck', 
-    description: '', 
     shared: false, 
     player_name: 'Gary Oak', 
     tournament_id: 2,
@@ -174,8 +170,7 @@ deck4 = Deck.create(
     ])
 
 deck5 = Deck.create(
-    title: 'Water Deck', 
-    description: '', 
+    title: 'Water Deck',  
     shared: false, 
     player_name: 'Misty', 
     tournament_id: 2,
@@ -219,7 +214,6 @@ deck5 = Deck.create(
 
 deck6 = Deck.create(
     title: 'Rock Deck', 
-    description: '', 
     shared: false, 
     player_name: 'Brock', 
     tournament_id: 2,
@@ -261,10 +255,10 @@ deck6 = Deck.create(
 
     ])
 
-UserDeck.create(:user_id => 3, :deck_id => 3)
-UserDeck.create(:user_id => 3, :deck_id => 4)
-UserDeck.create(:user_id => 3, :deck_id => 5)
-UserDeck.create(:user_id => 3, :deck_id => 6)
+UserDeck.create(:user_id => 3, :deck_id => 3, :notes => "charizard deck")
+UserDeck.create(:user_id => 3, :deck_id => 4, :notes => "blastoise deck")
+UserDeck.create(:user_id => 3, :deck_id => 5, :notes => "water deck")
+UserDeck.create(:user_id => 3, :deck_id => 6, :notes => "rock deck")
 
 tournament3 = Tournament.create(
     event_name: 'League Cup', 
@@ -275,7 +269,6 @@ tournament3 = Tournament.create(
 
 deck7 = Deck.create(
     title: 'Welder Mew3', 
-    description: '', 
     shared: false, 
     player_name: 'Stephane', 
     tournament_id: 3,
@@ -319,7 +312,6 @@ deck7 = Deck.create(
 
 deck8 = Deck.create(
     title: 'ADP Zacian', 
-    description: '', 
     shared: false, 
     player_name: 'Zackary', 
     tournament_id: 3,
@@ -363,7 +355,6 @@ deck8 = Deck.create(
 
 deck9 = Deck.create(
     title: 'Eternatus', 
-    description: '', 
     shared: false, 
     player_name: 'Charlie', 
     tournament_id: 3,
@@ -407,7 +398,6 @@ deck9 = Deck.create(
 
 deck10 = Deck.create(
     title: 'Deci Goons', 
-    description: '', 
     shared: false, 
     player_name: 'Caleb', 
     tournament_id: 3,
@@ -449,14 +439,13 @@ deck10 = Deck.create(
 
     ])
 
-UserDeck.create(:user_id => 3, :deck_id => 7)
-UserDeck.create(:user_id => 3, :deck_id => 8)
-UserDeck.create(:user_id => 3, :deck_id => 9)
-UserDeck.create(:user_id => 3, :deck_id => 10)
+UserDeck.create(:user_id => 3, :deck_id => 7, :notes => "welder deck")
+UserDeck.create(:user_id => 3, :deck_id => 8, :notes => "adpz")
+UserDeck.create(:user_id => 3, :deck_id => 9, :notes => "dark")
+UserDeck.create(:user_id => 3, :deck_id => 10, :notes => "single prize")
 
 deck11 = Deck.create(
     title: 'Mew3', 
-    description: '', 
     shared: true, 
     player_name: 'otto', 
     tournament_id: 1,
@@ -498,14 +487,13 @@ deck11 = Deck.create(
 
     ])
 
-UserDeck.create(:user_id => 7, :deck_id => 11)
-UserDeck.create(:user_id => 6, :deck_id => 11)
-UserDeck.create(:user_id => 5, :deck_id => 11)
-UserDeck.create(:user_id => 4, :deck_id => 11)
+UserDeck.create(:user_id => 7, :deck_id => 11, :notes => "mew3")
+UserDeck.create(:user_id => 6, :deck_id => 11, :notes => "welder mew3")
+UserDeck.create(:user_id => 5, :deck_id => 11, :notes => "psychic")
+UserDeck.create(:user_id => 4, :deck_id => 11, :notes => "fire")
 
 deck12 = Deck.create(
     title: 'ADPZ', 
-    description: 'adpz da best, super broken', 
     shared: true, 
     player_name: 'nate', 
     tournament_id: 1,
