@@ -36,7 +36,6 @@
     <table style="width:100%">
     <tr>
         <td> <h4> Deck Title </h4> </td>
-        <td> <h4> Deck Description </h4> </td>
         <td> <h4> Deck Creator </h4> </td>
         <td> <h4> Deck Users </h4> </td>
         <td> <h4> Deck Link </h4> </td>
@@ -45,7 +44,6 @@
         <% current_user.decks.each do |deck| %>
             <tr>
                 <td> <%= deck.title %> </td>
-                <td> <%= deck.description %> </td>
                 <td> <%= deck.player_name %> </td>
                 <td> <%= deck.users.count %> </td>
                 <td> <%= link_to "View #{deck.title}", user_deck_path(deck.users.first, deck) %> <br> </td>

@@ -4,9 +4,6 @@ class AdminsController < ApplicationController
     def admin_home
     end 
 
-    def admin_decks
-    end 
-
     def delete_deck
         @deck = Deck.find_by(id: params[:id])
         @deck.admin_deck_delete

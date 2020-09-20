@@ -95,7 +95,7 @@ class DecksController < ApplicationController
     private
 
     def deck_params
-        params.require(:deck).permit(:title, :description, :shared, :player_name, :tournament_id, 
+        params.require(:deck).permit(:title, :shared, :player_name, :tournament_id, 
             :tournament_placement, 
         cards_attributes: 
         [
