@@ -91,6 +91,10 @@ class Deck < ApplicationRecord
         return true
     end 
 
+    def self.search(params)
+        Deck.where('title LIKE ?', "%#{params}%")
+    end 
+
     # Validation Methods Start
 
     def deck_count # Decks must have 60 cards exactly

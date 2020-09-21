@@ -13,6 +13,10 @@ class DecksController < ApplicationController
         else 
             @decks = Deck.newest_created
         end
+
+        if params[:search]
+            @decks = Deck.search(params[:search])
+        end 
     end  
     
     def show # Shows an indvidual deck
@@ -91,20 +95,20 @@ class DecksController < ApplicationController
     def add_cards # Allows new/edit to build more cards (children) for a deck (parent)
         if params[:deck_id].present?
             Deck.row_increase("edit")
-            redirect_to edit_user_deck_path(params[:deck_id])
+            redirect_to edit_user_deck_path(current_user, params[:deck_id])
         else
             Deck.row_increase("new")
-            redirect_to new_user_deck_path
+            redirect_to new_user_deck_path(current_user, params[:deck_id])
         end 
     end
 
     def remove_cards # Allows new/edit to build less cards (children) for a deck (parent)
         if params[:deck_id].present?
             Deck.row_decrease("edit")
-            redirect_to edit_user_deck_path(params[:deck_id])
+            redirect_to edit_user_deck_path(current_user, params[:deck_id])
         else
             Deck.row_decrease("new")
-            redirect_to new_user_deck_path
+            redirect_to new_user_deck_path(current_user, params[:deck_id])
         end 
     end
 

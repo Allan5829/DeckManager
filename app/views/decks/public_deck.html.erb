@@ -18,6 +18,11 @@
     <%= submit_tag "Sort By" %>
 <% end %>
 
+<%= form_tag decks_public_path, method: :get do %>
+    Enter a deck name to search: <%= text_field_tag :search %>
+    <%= submit_tag "Search" %>
+<% end %>
+
 <table style="width:100%">
   <tr>
     <td> <h4> Deck Title </h4> </td>
