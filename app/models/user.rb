@@ -2,8 +2,12 @@ class User < ApplicationRecord
     has_many :user_decks
     has_many :decks, through: :user_decks
 
+    # User Object Validations
+
     validates :name, :email, presence: true, uniqueness: true
     has_secure_password
+
+    # Model Methods
 
     def self.find_or_create_from_auth(auth)
         git_name = auth.info.nickname

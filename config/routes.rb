@@ -10,10 +10,10 @@ Rails.application.routes.draw do
 
   get 'decks/:id/copy', to: 'decks#copy_deck', as: :copy_deck #copy_deck_path(deck)
   get 'decks/:id/delete', to: 'decks#delete_deck', as: :delete_deck #delete_deck_path(deck)
+  post 'decks/edit_notes', to: 'decks#edit_notes', as: :edit_notes #edit_notes_path 
 
   post 'decks/add_cards', to: 'decks#add_cards', as: :add_card #add_card_path
   post 'decks/remove_cards', to: 'decks#remove_cards', as: :remove_card #remove_card_path
-  post 'decks/edit_notes', to: 'decks#edit_notes', as: :edit_notes #edit_notes_path  
 
   # Session Routes
   get 'user/signup', to: 'sessions#signup', as: :signup #signup_path
@@ -24,7 +24,7 @@ Rails.application.routes.draw do
 
   get 'logout', to: 'sessions#logout' #logout_path
 
-  root 'sessions#home' #testing purposes only, temporary 
+  root 'sessions#home' # home page for all visitors/users
 
   match '/auth/github/callback', to: 'sessions#github_create', via: [:get, :post]
 

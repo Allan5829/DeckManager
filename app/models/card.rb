@@ -12,10 +12,9 @@ class Card < ApplicationRecord
     validates :set_info, presence: true, 
         if: :pokemon?
         
-
     # Validation Methods Start
 
-    def one_card_type
+    def one_card_type # Makes sure a card can only be defined as 1 card type only
         card_type = 0
         card_type += 1 if self.pokemon
         card_type += 1 if self.trainer
@@ -29,7 +28,7 @@ class Card < ApplicationRecord
         end 
     end 
 
-    def quantity_per_type
+    def quantity_per_type # Makes sure a card has an appropiate quantity
         if self.pokemon || self.trainer || self.special_energy
             if self.count < 1 || self.count > 4
                 errors.add(:error, "this type of card must have a quantity of 1-4")

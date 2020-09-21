@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
         end
     end
 
-    def admin_logged_in?
+    def admin_logged_in? # admin version of logged_in?
         if current_user
             if !current_user.admin
                 redirect_to '/'
@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
         end
     end 
 
-    def get_user_id(deck) #returns first user id of this deck
+    def get_user_id(deck) # returns first user id of deck.users
         ud = UserDeck.find_by(:deck_id => deck.id)
         if ud
             ud.user_id

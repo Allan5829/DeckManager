@@ -1,14 +1,29 @@
 class DecksController < ApplicationController 
     before_action :logged_in?, except: [:public_deck, :show]
 
-    def index
-        
-    end 
-
-    def show
+    # Every visitor has access to these actions
+    
+    def public_deck # Shows all public decks
+        if params[:sort] == "Number of Users"
+            @decks = Deck.most_users
+        elsif params[:sort] == "Newest Created"
+            @decks = Deck.newest_created
+        elsif params[:sort] == "Oldest Created"
+            @decks = Deck.oldest_created
+        else 
+            @decks = Deck.newest_created
+        end
+    end  
+    
+    def show # Shows an indvidual deck
         @deck = Deck.find_by(id: params[:id])
         @note = UserDeck.find_by(:user_id => current_user.id, :deck_id => @deck.id) if current_user
         @deck_counts = @deck.get_card_counts
+    end
+
+    # Only logged in visitors have access to these actions
+
+    def index # Shows all decks belonging to that user
     end 
 
     def new
@@ -48,25 +63,13 @@ class DecksController < ApplicationController
         end 
     end 
 
-    def public_deck
-        if params[:sort] == "Number of Users"
-            @decks = Deck.most_users
-        elsif params[:sort] == "Newest Created"
-            @decks = Deck.newest_created
-        elsif params[:sort] == "Oldest Created"
-            @decks = Deck.oldest_created
-        else 
-            @decks = Deck.newest_created
-        end
-    end 
-
-    def copy_deck #method for a user to save a deck
+    def copy_deck # Action that adds this user to the deck's collection of users
         @deck = Deck.find_by(id: params[:id])
         UserDeck.create(:user_id => current_user.id, :deck_id => @deck.id)
         redirect_to user_deck_path(get_user_id(@deck), @deck.id)
     end 
 
-    def delete_deck #method for a user to delete deck from their collection of decks
+    def delete_deck # Action that removes this user from this deck's collection of users
         @deck = Deck.find_by(id: params[:id])
         user_deck = UserDeck.find_by(:user_id => current_user.id, :deck_id => @deck.id)
         user_deck.destroy
@@ -74,7 +77,7 @@ class DecksController < ApplicationController
         redirect_to user_path(current_user)
     end 
 
-    def edit_notes
+    def edit_notes # Edits notes for the specific User and Deck
         @deck = Deck.find_by(id: params[:deck_id])
         @note = UserDeck.find_by(:user_id => current_user.id, :deck_id => @deck.id)
 
@@ -85,7 +88,7 @@ class DecksController < ApplicationController
         end 
     end 
 
-    def add_cards
+    def add_cards # Allows new/edit to build more cards (children) for a deck (parent)
         if params[:deck_id].present?
             Deck.row_increase("edit")
             redirect_to edit_user_deck_path(params[:deck_id])
@@ -95,7 +98,7 @@ class DecksController < ApplicationController
         end 
     end
 
-    def remove_cards
+    def remove_cards # Allows new/edit to build less cards (children) for a deck (parent)
         if params[:deck_id].present?
             Deck.row_decrease("edit")
             redirect_to edit_user_deck_path(params[:deck_id])
@@ -105,7 +108,7 @@ class DecksController < ApplicationController
         end 
     end
 
-    private
+    private 
 
     def deck_params
         params.require(:deck).permit(:title, :shared, :player_name, :tournament_id, 

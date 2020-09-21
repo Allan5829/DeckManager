@@ -6,28 +6,30 @@ class Deck < ApplicationRecord
 
     accepts_nested_attributes_for :cards
 
-    # removes cards that have no name and count so blank cards aren't saved
+    # Before Validations
     before_validation :remove_empty_cards 
 
     # Deck Object Validations
     validates :title, :tournament_placement, presence: true
     validates :shared, inclusion: { in: [true, false] }
-    validate :deck_count # deck must have 60 cards
-    validate :no_duplicates # can't create 2 cards with the same information in certain cases
-    validate :pokemon_count # can't have more than 4 pokemon with the same name
+    validate :deck_count 
+    validate :no_duplicates 
+    validate :pokemon_count 
 
     # Scopes
     scope :public_deck, -> { where(shared: true) }
-    scope :most_users, -> { public_deck.sort {|a,b| b.users.count <=> a.users.count} }
     scope :newest_created, -> { public_deck.order(created_at: :desc) }
     scope :oldest_created, -> { public_deck.order(created_at: :asc) }
+
+    # Could replace sort with order, but to do so would require more code and be inefficent
+    scope :most_users, -> { public_deck.sort {|a,b| b.users.count <=> a.users.count} }
 
     # Model Methods Start
 
     @rows = 20
     @edit_rows = 1
 
-    def self.row_increase(action)
+    def self.row_increase(action) # Changes how many "child" objects are created
         if action == "new"
             @rows += 1
         elsif action == "edit"
@@ -35,7 +37,7 @@ class Deck < ApplicationRecord
         end 
     end
 
-    def self.row_decrease(action)
+    def self.row_decrease(action) # Changes how many "child" objects are created
         if action == "new"
             @rows -= 1
         elsif action == "edit"
@@ -43,16 +45,15 @@ class Deck < ApplicationRecord
         end 
     end
 
-    def self.row(action)
+    def self.row(action) # Determines how many "child" objects are created
         if action == "new"
             @rows 
         elsif action == "edit"
-            
             @edit_rows 
         end 
     end
 
-    def get_card_counts
+    def get_card_counts # Used in decks_controller.rb for show in order to diaplay useful information
         array = []
 
         count = 0
@@ -74,7 +75,7 @@ class Deck < ApplicationRecord
         array << count
     end 
 
-    def admin_deck_delete 
+    def admin_deck_delete # Deck destroy method
         user_deck = UserDeck.where(deck_id: self.id)
 
         user_deck.each do |ud|
@@ -92,7 +93,7 @@ class Deck < ApplicationRecord
 
     # Validation Methods Start
 
-    def deck_count
+    def deck_count # Decks must have 60 cards exactly
         deck_count = 0
 
         self.cards.each do |card|
@@ -106,7 +107,7 @@ class Deck < ApplicationRecord
         end 
     end
 
-    def no_duplicates
+    def no_duplicates # Makes sure users can't create 2 cards with the same information in certain cases
         card_array = []
 
         self.cards.each do |card|
@@ -123,7 +124,8 @@ class Deck < ApplicationRecord
         end 
     end 
 
-    def pokemon_count # Case is when the number of pokemon with the same name is more than 4
+    def pokemon_count # Makes sure users can't create a deck that uses more than 4 pokemon with the 
+            # same name
         card_array = []
 
         self.cards.each do |card|
@@ -136,7 +138,8 @@ class Deck < ApplicationRecord
 
     private
 
-    def remove_empty_cards
+    def remove_empty_cards # Removes card objects that have no name and/or count so blank cards aren't 
+            # saved/get caught by validations
         blank_card = []
 
         self.cards.each do |card|

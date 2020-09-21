@@ -1,7 +1,9 @@
 class TournamentsController < ApplicationController
     before_action :admin_logged_in?, except: [:index, :show]
 
-    def index
+    # Every visitor has access to these actions
+
+    def index # Shows a list of tournaments
         if current_user && current_user.admin == true
             @tournaments = Tournament.all
         else
@@ -10,10 +12,12 @@ class TournamentsController < ApplicationController
         end 
     end 
     
-    def show
+    def show # Shows an indvidual tournaments with it's decks
         @tournament = Tournament.find_by(id: params[:id])
         @decks = @tournament.decks.sort {|a,b| a.tournament_placement <=> b.tournament_placement}
     end 
+
+    # Only admins have access to these actions
 
     def new
         @tournament = Tournament.new
