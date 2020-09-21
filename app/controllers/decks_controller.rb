@@ -7,7 +7,7 @@ class DecksController < ApplicationController
 
     def show
         @deck = Deck.find_by(id: params[:id])
-        @note = UserDeck.find_by(:user_id => current_user.id, :deck_id => @deck.id)
+        @note = UserDeck.find_by(:user_id => current_user.id, :deck_id => @deck.id) if current_user
         @deck_counts = @deck.get_card_counts
     end 
 
@@ -19,9 +19,9 @@ class DecksController < ApplicationController
 
     def create
         @deck = Deck.new(deck_params)
-        
-        if @deck.save
-            UserDeck.create(:user_id => current_user.id, :deck_id => @deck.id, :notes => user_deck_params)
+
+        if @deck.save && UserDeck.create(
+                :user_id => current_user.id, :deck_id => @deck.id, :notes => user_deck_params)
             if current_user.admin == true
                 redirect_to tournament_path(current_user.decks.last.tournament)
             else
@@ -41,9 +41,7 @@ class DecksController < ApplicationController
         @deck = Deck.find_by(id: params[:id])
         @note = UserDeck.find_by(:user_id => current_user.id, :deck_id => @deck.id)
 
-        if @deck.update(deck_params) 
-            @note.notes = user_deck_params
-            @note.save
+        if @deck.update(deck_params) && @note.update(:notes => user_deck_params)
             redirect_to user_deck_path(@deck)
         else
             render :edit
@@ -65,7 +63,7 @@ class DecksController < ApplicationController
     def copy_deck #method for a user to save a deck
         @deck = Deck.find_by(id: params[:id])
         UserDeck.create(:user_id => current_user.id, :deck_id => @deck.id)
-        redirect_to user_path(current_user)
+        redirect_to user_deck_path(get_user_id(@deck), @deck.id)
     end 
 
     def delete_deck #method for a user to delete deck from their collection of decks
@@ -74,6 +72,17 @@ class DecksController < ApplicationController
         user_deck.destroy
 
         redirect_to user_path(current_user)
+    end 
+
+    def edit_notes
+        @deck = Deck.find_by(id: params[:deck_id])
+        @note = UserDeck.find_by(:user_id => current_user.id, :deck_id => @deck.id)
+
+        if @note.update(:notes => user_deck_params)
+            redirect_to user_deck_path(get_user_id(@deck), @deck.id)
+        else
+            render :show
+        end 
     end 
 
     def add_cards

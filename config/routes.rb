@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   get 'decks/:id/delete', to: 'decks#delete_deck', as: :delete_deck #delete_deck_path(deck)
 
   post 'decks/add_cards', to: 'decks#add_cards', as: :add_card #add_card_path
-  post 'decks/remove_cards', to: 'decks#remove_cards', as: :remove_card #remove_card_path  
+  post 'decks/remove_cards', to: 'decks#remove_cards', as: :remove_card #remove_card_path
+  post 'decks/edit_notes', to: 'decks#edit_notes', as: :edit_notes #edit_notes_path  
 
   # Session Routes
   get 'user/signup', to: 'sessions#signup', as: :signup #signup_path

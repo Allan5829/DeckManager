@@ -6,11 +6,10 @@
 <% end %>
 
 <%= link_to "View all public decks", decks_public_path %> <br>
-<%= link_to "View your decks", user_decks_path(current_user) %> <br>
 
 <h2> <%= @deck.title %> </h2>
 <% if @note %>
-    Notes: <%= @note.notes %>
+    Notes: <%= @note.notes %> <br>
 <% end %>
 
 Originally created by: <%= @deck.player_name %> <br>
@@ -24,9 +23,14 @@ Originally created by: <%= @deck.player_name %> <br>
             <%= link_to "Edit this deck?", edit_user_deck_path(current_user, @deck) %> 
             <%= link_to "Delete deck from your collection?", delete_deck_path(@deck) %> <br> 
         <% elsif @deck.users.find_by(id: current_user.id) %>
+            <%= form_tag edit_notes_path do %>
+                Your notes about the deck: <%= text_field_tag :notes %>
+                <%= hidden_field_tag 'deck_id', @deck.id %>
+                <%= submit_tag "Edit Notes" %>
+            <% end %>
             <%= link_to "Delete deck from your collection?", delete_deck_path(@deck) %> <br> 
         <% elsif !@deck.users.find_by(id: current_user.id) %>
-            <%= link_to "Copy deck?", copy_deck_path(@deck) %> <br>
+            <%= link_to "Save deck?", copy_deck_path(@deck) %> <br>
         <% end %>
     <% end %>
     

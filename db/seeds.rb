@@ -16,7 +16,7 @@ tournament1 = Tournament.create(
 deck1 = Deck.create(
     title: 'Test Deck 1',  
     shared: true, 
-    player_name: 'Allan5829', 
+    player_name: 'john', 
     tournament_id: 1,
     tournament_placement: 0,
     cards_attributes:[ 
@@ -63,7 +63,7 @@ UserDeck.create(:user_id => 7, :deck_id => 1, :notes => "copied deck")
 deck2 = Deck.create(
     title: 'ALL ENERGY AHAHAHA', 
     shared: true, 
-    player_name: 'name', 
+    player_name: 'Mr Troll', 
     tournament_id: 1,
     tournament_placement: 0,
     cards_attributes:[ 
